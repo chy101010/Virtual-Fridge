@@ -92,6 +92,7 @@ function AppNav({error}) {
             <Link to="/">Feed</Link>
             <Link to="/users">Users</Link>
 	    <Link to="/ingredients">Your Ingredients</Link>
+      <Link to="/mock">Mock</Link>
           </Nav>
         </Col>
         <Col>

@@ -4,13 +4,17 @@ defmodule CookingAppWeb.PostController do
   alias CookingApp.Posts
   alias CookingApp.Posts.Post
 
+  alias CookingAppWeb.Plugs
+  plug Plugs.RequireAuth when action in [:index, :create, :show, :delete]
   action_fallback CookingAppWeb.FallbackController
 
+  # Gets all the posts 
   def index(conn, _params) do
     posts = Posts.list_posts()
     render(conn, "index.json", posts: posts)
   end
 
+  # 
   def create(conn, %{"post" => post_params}) do
     with {:ok, %Post{} = post} <- Posts.create_post(post_params) do
       conn
@@ -19,6 +23,7 @@ defmodule CookingAppWeb.PostController do
       |> render("show.json", post: post)
     end
   end
+
 
   def show(conn, %{"id" => id}) do
     post = Posts.get_post!(id)

@@ -21,7 +21,7 @@ defmodule CookingApp.Seeds do
   end
 end
 
-File.stream!("/home/azad/cooking-app/server/ingredients.csv")
-|> Stream.drop(1)
-|> CSV.decode(headers: [:ingredient_name])
-|> Enum.each(&CookingApp.Seeds.store_it/1)
+#File.stream!("././ingredients.csv")
+#|> Stream.drop(1)
+#|> CSV.decode(headers: [:ingredient_name])
+#|> Enum.each(&CookingApp.Seeds.store_it/1)

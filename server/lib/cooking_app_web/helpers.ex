@@ -91,7 +91,7 @@ defmodule CookingAppWeb.Helpers do
                 missedIngredients: cleanIngrList(rcpe["missedIngredients"]),
                 usedIngredients: cleanIngrList(rcpe["usedIngredients"]),
                 unusedIngredients: cleanIngrList(rcpe["unusedIngredients"])
-            }
+            } end)
             {:ok, result}
         else
             result = %{}

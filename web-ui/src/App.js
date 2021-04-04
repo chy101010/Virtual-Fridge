@@ -4,6 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 import UsersNew from './Users/New';
 import UsersList from './Users/List';
 import ShowIngredients from './Ingredients/Show';
+import Mock from './Ingredients/Mock'
 import Nav from './Nav';
 import Home from './Home';
 import './App.scss';
@@ -27,6 +28,9 @@ function App() {
 	  </Route>
 	  <Route path="/ingredients" exact>
 	    <ShowIngredients />
+	  </Route>
+	  <Route path="/mock" exact>
+		  <Mock />
 	  </Route>
 	</Switch>
 	</Col>
