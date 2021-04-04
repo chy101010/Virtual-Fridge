@@ -35,7 +35,17 @@ defmodule CookingApp.OwnedIngredients do
       ** (Ecto.NoResultsError)
 
   """
-  def get_owned_ingredient!(id), do: Repo.get!(OwnedIngredient, id)
+  #def get_owned_ingredient!(id), do: Repo.get!(OwnedIngredient, id)
+
+   def get_owned_ingredient!(id) do
+     Repo.get!(OwnedIngredient, id)
+     |> Repo.preload([:user])
+     |> Repo.preload([:ingredient])
+   end
+
+   def get_owned_ingredient_by_user_id(user_id) do
+     Repo.get_by(OwnedIngredient, user_id: user_id);
+   end
 
   @doc """
   Creates a owned_ingredient.

@@ -24,6 +24,7 @@ defmodule CookingAppWeb.Router do
 
     resources "/users", UserController, except: [:new, :edit]
     resources "/session", SessionController, only: [:create]
+    resources "/ingredients", IngredientController
   end
 
   # Other scopes may use custom stacks.
