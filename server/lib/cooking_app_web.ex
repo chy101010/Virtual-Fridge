@@ -22,6 +22,7 @@ defmodule CookingAppWeb do
       use Phoenix.Controller, namespace: CookingAppWeb
 
       import Plug.Conn
+      import CookingAppWeb.Helpers
       import CookingAppWeb.Gettext
       alias CookingAppWeb.Router.Helpers, as: Routes
     end
@@ -33,6 +34,7 @@ defmodule CookingAppWeb do
         root: "lib/cooking_app_web/templates",
         namespace: CookingAppWeb
 
+      import CookingAppWeb.Helpers
       # Import convenience functions from controllers
       import Phoenix.Controller,
         only: [get_flash: 1, get_flash: 2, view_module: 1, view_template: 1]

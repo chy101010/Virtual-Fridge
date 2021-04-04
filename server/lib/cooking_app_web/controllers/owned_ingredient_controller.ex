@@ -4,7 +4,6 @@ defmodule CookingAppWeb.OwnedIngredientController do
   alias CookingApp.OwnedIngredients
   alias CookingApp.OwnedIngredients.OwnedIngredient
   alias CookingApp.Ingredients
-  alias CookingAppWeb.Helpers
   alias CookingAppWeb.Plugs
  
   plug Plugs.RequireAuth when action in [:index, :create, :show, :delete]
@@ -26,7 +25,7 @@ defmodule CookingAppWeb.OwnedIngredientController do
     ingredient = Ingredients.get_ingredient_by_name(owned_ingredient_params["name"]);
     if(ingredient) do
       owned_ingredient_params = Map.put(owned_ingredient_params, "user_id", user_id);
-      case OwnedIngredient.create_owned_ingredient(owned_ingredient_params) do
+      case OwnedIngredients.create_owned_ingredient(owned_ingredient_params) do
         {:ok, result} ->
           conn
           |> put_status(:created)
@@ -46,7 +45,7 @@ defmodule CookingAppWeb.OwnedIngredientController do
  
   # Shows the info of a owned ingredients 
   # Checks whether the id is valid 
-  # Checks whether the current user has that ingredient 
+  # Checks whether the current user has that ingredient - plug?
   def show(conn, %{"id" => id}) do
     user_id = conn.assigns[:user].id
     owned_ingredient = OwnedIngredients.get_owned_ingredient!(id)
@@ -69,7 +68,7 @@ defmodule CookingAppWeb.OwnedIngredientController do
  
   # Deletes the info of a owned ingredients 
   # Checks whether the id is valid 
-  # Checks whether the current user has that ingredient 
+  # Checks whether the current user has that ingredient - plug?
   def delete(conn, %{"id" => id}) do
     user_id = conn.assigns[:user].id
     owned_ingredient = OwnedIngredients.get_owned_ingredient!(id)

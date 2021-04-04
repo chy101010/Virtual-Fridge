@@ -26,6 +26,7 @@ defmodule CookingApp.Users.User do
   end
 
   def add_password_hash(cset, password) do
-    change(cset, Argon2.add_hash(password))
+    change(cset, password);
+    # change(cset, Argon2.add_hash(password))
   end
 end

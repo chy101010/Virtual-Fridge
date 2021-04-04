@@ -22,9 +22,10 @@ defmodule CookingAppWeb.Router do
   scope "/api/v1", CookingAppWeb do
     pipe_through :api
 
-    resources "/users", UserController, except: [:new, :edit]
     resources "/session", SessionController, only: [:create]
-    resources "/ingredients", IngredientController
+    resources "/users", UserController, except: [:new, :edit]
+    resources "/ingredients", IngredientController, except: [:delete, :update]
+    resources "/owned-ingredients", OwnedIngredientController, except: [:update]
   end
 
   # Other scopes may use custom stacks.

@@ -2,8 +2,10 @@ use Mix.Config
 
 # Configure your database
 config :cooking_app, CookingApp.Repo,
-  username: "cooking_app",
-  password: "eeTheiw0phu2",
+  # username: "cooking_app",
+  # password: "eeTheiw0phu2",
+  username: "hw07",
+  password: "Joi7Yo3A",
   database: "cooking_app_dev",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
