@@ -4,6 +4,7 @@ import { Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 function UsersList({users}) {
+  console.log(users);
   let rows = users.map((user) => (
     <tr key={user.id}>
       <td>{user.first_name} {user.last_name}</td>

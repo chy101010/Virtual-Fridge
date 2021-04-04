@@ -1,7 +1,8 @@
 import store from './store';
 
 export async function api_get(path) {
-    let token = store.getState().session.token;
+    let token = localStorage.getItem("session").token;
+
     let ops = {
       method: 'GET',
       headers: {
@@ -58,6 +59,14 @@ export function create_user(user) {
   return api_post("/users", {user});
 }
 
+export function fetch_ingredients() {
+  api_get("/ingredients").then((data) => store.dispatch({
+    type: 'ingredients/set',
+    data: data,
+  }));
+}
+
 export function load_defaults() {
   fetch_users();
+  fetch_ingredients();
 }

@@ -55,6 +55,15 @@ function session(state = restore_session(), action) {
       return state;
   }
 }
+
+function ingredients(state = [], action) {
+  switch (action.type) {
+    case 'ingredients/set':
+      return action.data;
+    default:
+      return state;
+  }
+}
  
 function error(state = null, action) {
   switch (action.type) {
@@ -70,7 +79,7 @@ function error(state = null, action) {
 function root_reducer(state, action) {
     console.log("root_reducer", state, action);
     let reducer = combineReducers({
-        users, user_form, session, error
+        users, user_form, session, error, ingredients
     });
     return reducer(state, action);
 }
