@@ -1,7 +1,7 @@
 import store from './store';
 
 export async function api_get(path) {
-    let token = localStorage.getItem("session").token;
+    let token = get_token();
 
     let ops = {
       method: 'GET',
@@ -15,11 +15,28 @@ export async function api_get(path) {
     return resp.data;
 }
 
-export async function api_post(path, data) {
-  let token = localStorage.getItem("session").token;
-  console.log("post")
-  console.log(token)
+function get_token() {
+  let state = store.getState();
+  return state.session.token;
+}
 
+export async function api_post_no_auth(path, data) {
+  let opts = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data),
+  };
+  let text = await fetch(
+    "http://localhost:4000/api/v1" + path, opts);
+  return await text.json();
+}
+
+// Post with out x-auth
+// Post with x-auth
+export async function api_post(path, data) {
+  let token = get_token();
   let opts = {
     method: 'POST',
     headers: {
@@ -34,7 +51,7 @@ export async function api_post(path, data) {
 }
 
 export function api_login(username, password) {
-  api_post("/session", {username, password}).then((data) => {
+  api_post_no_auth("/session", {username, password}).then((data) => {
     if (data.session) {
       let action = {
         type: 'session/set',
@@ -60,7 +77,7 @@ export function fetch_users() {
 }
 
 export function create_user(user) {
-  return api_post("/users", {user});
+  return api_post_no_auth("/users", {user});
 }
 
 export function create_ingredient(ingredient) {

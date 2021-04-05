@@ -4,7 +4,7 @@ defmodule CookingApp.OwnedIngredients.OwnedIngredient do
 
   schema "ownedingredients" do
     field :user_id, :id
-    field :ingredient_name, :id
+    field :ingredient_id, :string
 
     timestamps()
   end
@@ -12,7 +12,7 @@ defmodule CookingApp.OwnedIngredients.OwnedIngredient do
   @doc false
   def changeset(owned_ingredient, attrs) do
     owned_ingredient
-    |> cast(attrs, [])
-    |> validate_required([])
+    |> cast(attrs, [:user_id, :ingredient_id])
+    |> validate_required([:user_id, :ingredient_id])
   end
 end

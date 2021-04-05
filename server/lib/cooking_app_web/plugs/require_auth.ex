@@ -10,7 +10,7 @@ defmodule CookingAppWeb.Plugs.RequireAuth do
       case Phoenix.Token.verify(conn, "user_id",
             token, max_age: 86400) do
         {:ok, user_id} ->
-          user = CookingAppWeb.Users.get_user!(user_id)
+          user = CookingApp.Users.get_user!(user_id)
           assign(conn, :user, user)
         {:error, err} ->
           conn

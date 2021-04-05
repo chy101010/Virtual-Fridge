@@ -60,6 +60,8 @@ defmodule CookingApp.OwnedIngredients do
 
   """
   def create_owned_ingredient(attrs \\ %{}) do
+    IO.inspect("create owned ingredient")
+    IO.inspect(attrs)
     %OwnedIngredient{}
     |> OwnedIngredient.changeset(attrs)
     |> Repo.insert()

@@ -38,8 +38,15 @@ defmodule CookingApp.Ingredients do
   def get_ingredient!(id), do: Repo.get!(Ingredient, id)
 
   def get_ingredient_by_name(ingredient_name) do
-    Repo.get_by(Ingredient, ingredient_name: ingredient_name);
+    Repo.get_by(Ingredient, ingredient_name: ingredient_name)
   end 
+
+  def get_ingredient_id_by_name(ingredient_name) do
+    ing = get_ingredient_by_name(ingredient_name)
+    IO.inspect("by id")
+    IO.inspect(ing)
+    ing
+  end
 
   @doc """
   Creates a ingredient.

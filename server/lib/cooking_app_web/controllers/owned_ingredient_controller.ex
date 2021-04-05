@@ -21,12 +21,14 @@ defmodule CookingAppWeb.OwnedIngredientController do
   # owned_ingredient_params = {"ingredient_name": ingredient_name}
   # Checks whether the ingredient's name is valid and the current user doesn't have a duplicate  
   def create(conn, %{"owned_ingredient" => owned_ingredient_params}) do
-    IO.inspect(conn.assigns)
     user_id = conn.assigns[:user].id
-    ingredient = Ingredients.get_ingredient_by_name(owned_ingredient_params["ingredient_name"]);
-    if(ingredient) do
-      owned_ingredient_params = Map.put(owned_ingredient_params, "user_id", user_id);
-      case OwnedIngredients.create_owned_ingredient(owned_ingredient_params) do
+    ingredient_id = Ingredients.get_ingredient_id_by_name(owned_ingredient_params["ingredient_name"]);
+    if(ingredient_id) do
+      params = %{"user_id": user_id, "ingredient_id": ingredient_id}
+      IO.inspect(params)
+      res = OwnedIngredients.create_owned_ingredient(params)
+      IO.inspect(res)
+      case res do
         {:ok, result} ->
           conn
           |> put_status(:created)
@@ -35,7 +37,7 @@ defmodule CookingAppWeb.OwnedIngredientController do
         {:error, %Ecto.Changeset{} = changeset} ->
           conn 
           |> put_resp_header("content-type", "application/json; charset=UTF-8")
-          |> send_resp(:not_modified, Jason.encode!(%{error: changeset.errors}))
+          |> send_resp(:not_acceptable, Jason.encode!(%{error: "Given Ingredient Not Found."}))
       end 
     else
       conn
