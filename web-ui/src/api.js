@@ -59,6 +59,14 @@ export function create_user(user) {
   return api_post("/users", {user});
 }
 
+export function create_ingredient(ingredient) {
+  return api_post("/ingredients", {ingredient});
+}
+
+export function create_owned_ingredient(owned_ingredient) {
+  return api_post("/owned-ingredients", {owned_ingredient})
+}
+
 export function fetch_ingredients() {
   api_get("/ingredients").then((data) => store.dispatch({
     type: 'ingredients/set',

@@ -37,8 +37,8 @@ defmodule CookingApp.Ingredients do
   """
   def get_ingredient!(id), do: Repo.get!(Ingredient, id)
 
-  def get_ingredient_by_name(name) do
-    Repo.get_by(Ingredient, name: name);
+  def get_ingredient_by_name(ingredient_name) do
+    Repo.get_by(Ingredient, ingredient_name: ingredient_name);
   end 
 
   @doc """

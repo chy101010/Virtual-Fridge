@@ -6,7 +6,7 @@ defmodule CookingAppWeb.OwnedIngredientController do
   alias CookingApp.Ingredients
   alias CookingAppWeb.Plugs
  
-  plug Plugs.RequireAuth when action in [:index, :create, :show, :delete]
+  #plug Plugs.RequireAuth when action in [:index, :create, :show, :delete]
   action_fallback CookingAppWeb.FallbackController
  
  
@@ -18,11 +18,12 @@ defmodule CookingAppWeb.OwnedIngredientController do
   end
  
   # Creates owned_ingredient
-  # owned_ingredient_params = {"name": ingredient_name}
+  # owned_ingredient_params = {"ingredient_name": ingredient_name}
   # Checks whether the ingredient's name is valid and the current user doesn't have a duplicate  
   def create(conn, %{"owned_ingredient" => owned_ingredient_params}) do
+    IO.inspect(conn.assigns)
     user_id = conn.assigns[:user].id
-    ingredient = Ingredients.get_ingredient_by_name(owned_ingredient_params["name"]);
+    ingredient = Ingredients.get_ingredient_by_name(owned_ingredient_params["ingredient_name"]);
     if(ingredient) do
       owned_ingredient_params = Map.put(owned_ingredient_params, "user_id", user_id);
       case OwnedIngredients.create_owned_ingredient(owned_ingredient_params) do

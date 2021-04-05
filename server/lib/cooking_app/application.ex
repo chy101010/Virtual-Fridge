@@ -17,6 +17,7 @@ defmodule CookingApp.Application do
       CookingAppWeb.Endpoint
       # Start a worker by calling: CookingApp.Worker.start_link(arg)
       # {CookingApp.Worker, arg}
+      CookingApp.Setup
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

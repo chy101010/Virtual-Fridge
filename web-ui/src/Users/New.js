@@ -50,6 +50,7 @@ function UsersNew() {
     ev.preventDefault();
     console.log(user);
     let data = pick(user, ['first_name', 'last_name', 'username', 'password']);
+    console.log(data)
     create_user(data).then(() => {
       fetch_users();
       history.push("/users");

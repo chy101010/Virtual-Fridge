@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-function UsersList({users}) {
+function UsersList({users, ingredients}) {
+  console.log(ingredients)
   console.log(users);
   let rows = users.map((user) => (
     <tr key={user.id}>
@@ -42,8 +43,8 @@ function UsersList({users}) {
 
 }
 
-function state2props({users}) {
-  return { users };
+function state2props({users, ingredients}) {
+  return { users, ingredients };
 }
 
 export default connect(state2props)(UsersList);

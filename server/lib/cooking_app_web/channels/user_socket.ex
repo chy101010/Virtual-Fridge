@@ -2,7 +2,7 @@ defmodule CookingAppWeb.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  # channel "room:*", CookingAppWeb.RoomChannel
+  channel "room:*", CookingAppWeb.RoomChannel
 
   # Socket params are passed from the client and can
   # be used to verify and authenticate a user. After
