@@ -1,6 +1,7 @@
+ 
 defmodule CookingApp.Server do
     def reg(gameName) do
-        {:via, Registry, {Bulls.Registry, gameName}}
+        {:via, Registry, {CookingApp.Registry, gameName}}
     end
 
     

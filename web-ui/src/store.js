@@ -44,6 +44,7 @@ function remove_session() {
 }
  
 function session(state = restore_session(), action) {
+  console.log("callled");
   switch (action.type) {
     case 'session/set':
       save_session(action.data);

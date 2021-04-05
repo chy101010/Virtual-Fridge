@@ -8,7 +8,7 @@ defmodule CookingApp.Setup do
     @impl true
     def init(:ok) do
         children = [
-            {Registry, name: CookingApp.Registry, keys: unique},
+            {Registry, name: CookingApp.Registry, keys: :unique},
             {DynamicSupervisor, name: CookingApp.Sup,  strategy: :one_for_one}
         ]
         Supervisor.init(children, strategy: :one_for_one)

@@ -5,7 +5,7 @@ defmodule CookingAppWeb.IngredientController do
   alias CookingApp.Ingredients.Ingredient
   alias CookingAppWeb.Plugs
 
-  #plug Plugs.RequireAuth when action in [:index, :create, :show]
+  plug Plugs.RequireAuth when action in [:index, :create, :show]
   action_fallback CookingAppWeb.FallbackController
 
    # Gets all the available ingredients in the database

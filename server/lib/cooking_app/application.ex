@@ -14,7 +14,7 @@ defmodule CookingApp.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: CookingApp.PubSub},
       # Start the Endpoint (http/https)
-      CookingAppWeb.Endpoint
+      CookingAppWeb.Endpoint,
       # Start a worker by calling: CookingApp.Worker.start_link(arg)
       # {CookingApp.Worker, arg}
       CookingApp.Setup

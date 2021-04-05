@@ -16,10 +16,15 @@ export async function api_get(path) {
 }
 
 export async function api_post(path, data) {
+  let token = localStorage.getItem("session").token;
+  console.log("post")
+  console.log(token)
+
   let opts = {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'x-auth': token
     },
     body: JSON.stringify(data),
   };
@@ -30,7 +35,6 @@ export async function api_post(path, data) {
 
 export function api_login(username, password) {
   api_post("/session", {username, password}).then((data) => {
-    console.log("login resp", data);
     if (data.session) {
       let action = {
         type: 'session/set',
@@ -60,7 +64,7 @@ export function create_user(user) {
 }
 
 export function create_ingredient(ingredient) {
-  return api_post("/ingredients", {ingredient});
+  return api_post("/ingredients", {ingredient})
 }
 
 export function create_owned_ingredient(owned_ingredient) {
