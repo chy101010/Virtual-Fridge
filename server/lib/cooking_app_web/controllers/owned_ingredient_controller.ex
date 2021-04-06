@@ -6,7 +6,7 @@ defmodule CookingAppWeb.OwnedIngredientController do
   alias CookingApp.Ingredients
   alias CookingAppWeb.Plugs
  
-  plug Plugs.RequireAuth when action in [:index, :create, :show, :delete]
+  #plug Plugs.RequireAuth when action in [:index, :create, :show, :delete]
   action_fallback CookingAppWeb.FallbackController
  
  
@@ -24,9 +24,11 @@ defmodule CookingAppWeb.OwnedIngredientController do
     user_id = conn.assigns[:user].id
     ingredient_id = Ingredients.get_ingredient_id_by_name(owned_ingredient_params["ingredient_name"]);
     if(ingredient_id) do
-      params = %{"user_id": user_id, "ingredient_id": ingredient_id}
+      params = %{"user_id": user_id, "ingredient_id": ingredient_id.id}
+      IO.inspect "PARAMS"
       IO.inspect(params)
       res = OwnedIngredients.create_owned_ingredient(params)
+      IO.inspect "RES"
       IO.inspect(res)
       case res do
         {:ok, result} ->

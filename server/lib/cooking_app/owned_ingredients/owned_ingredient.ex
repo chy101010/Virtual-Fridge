@@ -4,7 +4,7 @@ defmodule CookingApp.OwnedIngredients.OwnedIngredient do
 
   schema "ownedingredients" do
     field :user_id, :id
-    field :ingredient_id, :string
+    field :ingredient_id, :id
 
     timestamps()
   end
