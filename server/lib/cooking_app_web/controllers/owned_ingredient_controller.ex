@@ -5,6 +5,9 @@ defmodule CookingAppWeb.OwnedIngredientController do
   alias CookingApp.OwnedIngredients.OwnedIngredient
   alias CookingApp.Ingredients
   alias CookingAppWeb.Plugs
+
+  # Room process
+  alias CookingApp.Room
  
   plug Plugs.RequireAuth when action in [:index, :create, :show, :delete]
   action_fallback CookingAppWeb.FallbackController
@@ -21,13 +24,13 @@ defmodule CookingAppWeb.OwnedIngredientController do
   # owned_ingredient_params = {"ingredient_name": ingredient_name}
   # Checks whether the ingredient's name is valid and the current user doesn't have a duplicate  
   def create(conn, %{"owned_ingredient" => owned_ingredient_params}) do
+    IO.inspect("called Create")
+    Room.get_view()
     user_id = conn.assigns[:user].id
     ingredient_id = Ingredients.get_ingredient_id_by_name(owned_ingredient_params["ingredient_name"]);
     if(ingredient_id) do
       params = %{"user_id": user_id, "ingredient_id": ingredient_id}
-      IO.inspect(params)
       res = OwnedIngredients.create_owned_ingredient(params)
-      IO.inspect(res)
       case res do
         {:ok, result} ->
           conn

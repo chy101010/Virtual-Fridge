@@ -62,16 +62,19 @@ export default function AddIngredients() {
     return (
         <div >
             <h3>Add Ingredients</h3>
+            
             <p>Add an ingredient to your virtual fridge! Search through out preset list of up to one thousand ingredients.</p>
             <input type="text" id="ingredientSearch" onChange={(e) => {setSearched(e)}} placeholder="Search for ingredients.." />
             <Button onClick={filterIngredients}>search</Button>
             <ul id="myUL ">
                 {ingrs}
             </ul>
+            
             <p>Can't find what you're looking for? Try looking at the Spoonacular database.</p>
             <input type="text" id="addIngredient" onChange={(e) => setNewIngrSearch(e)} placeholder="New Ingredient" />
             <Button onClick={getSearchResults}>search</Button>
             <ul id="searchUL"></ul>
+
             <SearchBar ingredients = {new_ingredients} />
         </div>
     )

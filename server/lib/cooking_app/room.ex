@@ -13,7 +13,7 @@ defmodule CookingApp.Room do
     end 
 
     def get_view() do
-    
+        GenServer.call(:room, :view)
     end 
     
     def add_ingredient(ingredient) do
@@ -22,5 +22,11 @@ defmodule CookingApp.Room do
 
     def add_recipe(recipe) do
     
+    end 
+
+    @impl
+    def handle_call(:view, _from, state) do
+        IO.inspect("called Socket")
+        {:reply, %{}, state}
     end 
 end 

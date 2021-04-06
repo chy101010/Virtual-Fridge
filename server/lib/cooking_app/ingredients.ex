@@ -43,8 +43,6 @@ defmodule CookingApp.Ingredients do
 
   def get_ingredient_id_by_name(ingredient_name) do
     ing = get_ingredient_by_name(ingredient_name)
-    IO.inspect("by id")
-    IO.inspect(ing)
     ing
   end
 
