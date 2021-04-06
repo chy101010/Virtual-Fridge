@@ -9,7 +9,7 @@ import store from '../store';
 import { useSelector } from 'react-redux'
 
 // Socket
-import {socket_disconnect} from '../store'
+import {socket_disconnect} from '../Socket/socket'
 
 function Link({ to, children }) {
     return (
