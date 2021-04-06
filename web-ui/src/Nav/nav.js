@@ -37,12 +37,8 @@ export default function MyNav() {
 
 
     if (session) {
-        user = session.name;
+        user = session.username;
         logout_button = <Nav.Link onClick={logout} to="/">Log Out</Nav.Link>;
-
-        if (!session.name) {
-            store.dispatch({ type: "error/set", data: "Complete the Registration By Getting A Name. Otherwise, You Can't Do Anything!" });
-        }
     }
 
 
@@ -72,7 +68,6 @@ export default function MyNav() {
                 <Navbar.Brand>Events App</Navbar.Brand>
                 <Nav className="mr-auto">
                     <Link to="/">Home</Link>
-                    <Link to="/users">Users</Link>
                     <Link to="/ingredients">Your Ingredients</Link>
                     <Link to="/mock">Mock</Link>
                 </Nav>

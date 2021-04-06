@@ -5,7 +5,6 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import './index.css';
 import store from './store';
-import { load_defaults } from './api';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM.render(
@@ -19,4 +18,3 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
-// load_defaults();

@@ -19,7 +19,7 @@ export async function api_post_no_auth(path, data) {
 }
 
 export async function api_login(username, password) {
-  let data = await api_post("/session", {username, password});
+  let data = await api_post_no_auth("/session", { username, password });
   return data;
 }
 
@@ -42,14 +42,6 @@ export async function api_get(path) {
 export function fetch_ingredients() {
   api_get("/ingredients").then((data) => store.dispatch({
     type: 'ingredients/set',
-    data: data,
-  }));
-}
-
-
-export function fetch_users() {
-  api_get("/users").then((data) => store.dispatch({
-    type: 'users/set',
     data: data,
   }));
 }
@@ -89,3 +81,9 @@ export function create_owned_ingredient(owned_ingredient) {
 //   fetch_users();
 //   fetch_ingredients();
 // }
+// export function fetch_users() {
+  //   api_get("/users").then((data) => store.dispatch({
+  //     type: 'users/set',
+  //     data: data,
+  //   }));
+  // }

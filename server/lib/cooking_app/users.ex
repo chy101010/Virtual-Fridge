@@ -43,6 +43,7 @@ defmodule CookingApp.Users do
 
   def authenticate(username, pass) do
     user = Repo.get_by(User, username: username);
+    IO.inspect(user);
     if (user && pass === user.password_hash) do
       user
     else 

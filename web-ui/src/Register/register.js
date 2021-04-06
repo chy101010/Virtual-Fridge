@@ -4,8 +4,9 @@ import { Row, Col, Form, Button } from 'react-bootstrap';
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import pick from 'lodash/pick';
+import store from '../store'
+import { create_user } from '../api';
 
-import { create_user, fetch_users } from '../api';
 
 function Register() {
   let history = useHistory();
@@ -48,12 +49,15 @@ function Register() {
 
   function onSubmit(ev) {
     ev.preventDefault();
-    console.log(user);
     let data = pick(user, ['first_name', 'last_name', 'username', 'password']);
-    console.log(data)
     create_user(data).then(() => {
-      fetch_users();
-      history.push("/users");
+      if(data.error) {
+        store.dispatch({type: "error/set", data: data.error});
+      }
+      else {
+        store.dispatch({type: "success/set", data: `Hello ${user.name}, You have successfully registered, and now you can Log In!`});
+        history.push("/login");
+      }
     });
   }
 

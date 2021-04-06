@@ -6,6 +6,7 @@ defmodule CookingAppWeb.UserController do
 
   action_fallback CookingAppWeb.FallbackController
 
+  # TODO: Remove
   def index(conn, _params) do
     users = Users.list_users()
     render(conn, "index.json", users: users)
