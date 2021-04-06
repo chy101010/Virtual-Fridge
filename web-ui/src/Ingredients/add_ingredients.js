@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
-import { fetch_ingredients } from '../api'
+import { fetch_ingredients, search_ingredient_by_name } from '../api'
 import { Button } from 'react-bootstrap';
 import { create_ingredient, create_owned_ingredient } from '../api';
 
@@ -8,7 +8,7 @@ export default function AddIngredients() {
     let ingredients = useSelector(state => state.ingredients);
     let [search, setSearch] = useState("");
     const [ingredientsSearch, setIngredientsSearch] = useState([]);
-    const [newIngredient, setNewIngredient] = useState("");
+    const [newIngredientSearch, setNewIngredientSearch] = useState("");
 
     useEffect(() =>{
         fetch_ingredients();
@@ -25,8 +25,8 @@ export default function AddIngredients() {
         setSearch(e.target.value);
     }
 
-    function setNewIngr(e) {
-        setNewIngredient(e.target.value);
+    function setNewIngrSearch(e) {
+        setNewIngredientSearch(e.target.value);
     }
 
     function filterIngredients() {
@@ -38,24 +38,31 @@ export default function AddIngredients() {
         }))
     }
     
-    function addNewIngredient() {
+    function getSearchResults() {
         let data = {
-            ingredient_name: newIngredient
+            ingredient_name: newIngredientSearch
         }    
-        create_ingredient(data);
+        search_ingredient_by_name(data).then(() => {
+            console.log("helllllo");
+            console.log(data)
+        });
     }
 
     return (
         <div >
             <h3>Add Ingredients</h3>
+            <p>Add an ingredient to your virtual fridge! Search through out preset list of up to one thousand ingredients.</p>
             <input type="text" id="ingredientSearch" onChange={(e) => {setSearched(e)}} placeholder="Search for ingredients.." />
             <Button onClick={filterIngredients}>search</Button>
             <ul id="myUL ">
                 {ingrs}
             </ul>
-            <p>Can't find what you're looking for? Add a new Ingredient below.</p>
-            <input type="text" id="addIngredient" onChange={(e) => setNewIngr(e)} placeholder="New Ingredient" />
-            <Button onClick={addNewIngredient}>Add</Button>
+            <p>Can't find what you're looking for? Try looking at the Spoonacular database.</p>
+            <input type="text" id="addIngredient" onChange={(e) => setNewIngrSearch(e)} placeholder="New Ingredient" />
+            <Button onClick={getSearchResults}>search</Button>
+            <ul id="searchUL">
+                
+            </ul>
         </div>
     )
 }

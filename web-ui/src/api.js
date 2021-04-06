@@ -89,6 +89,9 @@ export function create_owned_ingredient(owned_ingredient) {
   return api_post("/owned-ingredients", { owned_ingredient })
 }
 
+export function search_ingredient_by_name(ingredient) {
+  return api_post("/ingredients-search", {ingredient})
+}
 
 // export function load_defaults() {
 //   fetch_users();

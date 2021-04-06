@@ -26,23 +26,16 @@ defmodule CookingAppWeb.IngredientController do
     db_ingredient = Ingredients.get_ingredient_by_name(ingr)
     IO.inspect(db_ingredient)
     if(!db_ingredient) do
-      case Helpers.getIngredientByName(ingr) do
+      case Ingredients.create_ingredient(ingredient_params) do
         {:ok, result} ->
-          case Ingredients.create_ingredient(ingredient_params) do
-            {:ok, result} ->
-              conn
-              |> put_status(:created)
-              |> put_resp_header("location", Routes.ingredient_path(conn, :show, ingredient_params["ingredient_name"]))
-              |> render("show.json", ingredient: result)
-            {:error, %Ecto.Changeset{} = changeset} ->
-              conn
-              |> put_resp_header("content-type", "application/json; charset=UTF-8")
-              |> send_resp(:not_modified, Jason.encode!(%{error: changeset.errors}))
-          end
-        {:error, result} ->
+          conn
+          |> put_status(:created)
+          |> put_resp_header("location", Routes.ingredient_path(conn, :show, ingredient_params["ingredient_name"]))
+          |> render("show.json", ingredient: result)
+        {:error, %Ecto.Changeset{} = changeset} ->
           conn
           |> put_resp_header("content-type", "application/json; charset=UTF-8")
-          |> send_resp(:not_acceptable, Jason.encode!(%{error: "Given Ingredient is not valid!"}))
+          |> send_resp(:not_modified, Jason.encode!(%{error: changeset.errors}))
       end
     else
       conn
