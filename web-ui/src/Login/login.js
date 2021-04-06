@@ -5,6 +5,7 @@ import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 import { api_login } from '../api';
 import store from "../store";
+import { ch_join } from "../Socket/socket"
 
 export default function Login() {
     let history = useHistory();
@@ -16,6 +17,7 @@ export default function Login() {
         if (result.session) {
             store.dispatch({ type: 'session/set', data: result.session });
             store.dispatch({ type: "success/set", data: `Welcome back ${result.session.name}!` });
+            ch_join();
             history.push('/');
         }
         else {

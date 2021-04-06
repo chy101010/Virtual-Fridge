@@ -16,8 +16,12 @@ import Nav from './Nav/nav';
 
 // Store
 import { restore_session } from './store'
+import { ch_join } from "./Socket/socket"
+// Socket 
+// import 
 
 function App() {
+	ch_join();
 	restore_session();
 	return (
 		<Container>

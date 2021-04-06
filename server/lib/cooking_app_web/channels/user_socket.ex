@@ -16,8 +16,14 @@ defmodule CookingAppWeb.UserSocket do
   # See `Phoenix.Token` documentation for examples in
   # performing token verification on connect.
   @impl true
-  def connect(_params, socket, _connect_info) do
-    {:ok, socket}
+  def connect(%{"token" => token, "username" => username} = params, socket, _connect_info) do
+    case Phoenix.Token.verify(CookingAppWeb.Endpoint, "user_id", token, max_age: 86400) do
+      {:ok, _user_id} -> 
+      socket1 = assign(socket, :username, username)
+        {:ok, socket1}
+      _ -> 
+        :error  
+    end 
   end
 
   # Socket id's are topics that allow you to identify all sockets for a given user:

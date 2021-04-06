@@ -6,6 +6,7 @@ defmodule CookingAppWeb.RoomChannel do
     def join("room:" <> user, payload, socket) do
         # TODO: Authenticate the user 
         if authorized?(payload) do
+            IO.puts("called");
             {:ok, socket}
         else 
             {:error, %{reason: "unauthorized"}}

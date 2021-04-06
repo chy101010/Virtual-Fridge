@@ -1,8 +1,23 @@
 import store from './store';
 
-function get_token() {
+export function get_token() {
   let state = store.getState();
-  return state.session.token;
+  if(state.session) {
+    return state.session.token;
+  }
+  else {
+    return null;
+  }
+}
+
+export function get_username() {
+  let state = store.getState();
+  if(state.session) {
+    return state.session.username; 
+  }
+  else {
+    return null;
+  }
 }
 
 export async function api_post_no_auth(path, data) {

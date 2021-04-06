@@ -8,6 +8,9 @@ import store from '../store';
 // Redux
 import { useSelector } from 'react-redux'
 
+// Socket
+import {socket_disconnect} from '../store'
+
 function Link({ to, children }) {
     return (
         <Nav.Item>
@@ -32,6 +35,7 @@ export default function MyNav() {
     function logout() {
         store.dispatch({ type: 'session/clear' });
         store.dispatch({ type: 'success/set', data: 'See you soon!' })
+        socket_disconnect();
         history.push("/");
     }
 
