@@ -1,10 +1,15 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
+import { fetch_ingredients } from '../api'
 
 export default function AddIngredients() {
     let ingredients = useSelector(state => state.ingredients);
     let [search, setSearch] = useState("");
     const [ingredientsSearch, setIngredientsSearch] = useState([]);
+
+    useEffect(() =>{
+        fetch_ingredients();
+    }, [])
 
     let ingrs = ingredientsSearch.map((i) => (
         <li key={i.id}> {i.ingredient_name}</li>
@@ -24,7 +29,7 @@ export default function AddIngredients() {
     }
 
     function searchButton() {
-        
+
     }
 
 

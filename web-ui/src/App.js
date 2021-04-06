@@ -16,11 +16,9 @@ import Nav from './Nav/nav';
 
 // Store
 import { restore_session } from './store'
-import { fetch_ingredients } from './api'
 
 function App() {
 	restore_session();
-	fetch_ingredients();
 	return (
 		<Container>
 			<Nav />
