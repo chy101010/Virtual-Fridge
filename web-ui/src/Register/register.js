@@ -7,7 +7,7 @@ import pick from 'lodash/pick';
 
 import { create_user, fetch_users } from '../api';
 
-function UsersNew() {
+function Register() {
   let history = useHistory();
   const [user, setUser] = useState({username: "", first_name: "", last_name: "", pass1: "", pass2: ""});
 
@@ -108,4 +108,4 @@ function state2props() {
   return {};
 }
 
-export default connect(state2props)(UsersNew);
+export default connect(state2props)(Register);

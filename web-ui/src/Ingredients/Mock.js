@@ -1,9 +1,7 @@
 import React from 'react';
-import { useState } from 'react';
 import { connect, useSelector } from 'react-redux';
-import { create_ingredient, create_owned_ingredient, fetch_ingredients } from '../api';
+import { create_ingredient, create_owned_ingredient } from '../api';
 import { Button } from 'react-bootstrap';
-import store from '../store';
 
 function Ingredients() {
   return (

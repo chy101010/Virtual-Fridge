@@ -6,15 +6,20 @@
     "bootstrap": "^4.6.0",
     "lodash": "^4.17.21",
     "node-sass": "^5.0.0",
+    "phoenix": "^1.5.8",
+    "phoenix-socket": "^1.2.3",
     "react": "^17.0.2",
     "react-bootstrap": "^1.5.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.3",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "0.9.5",
+    "react-scripts": "^0.9.5",
     "redux": "^4.0.5"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@babel/preset-env": "^7.13.12",
+    "@babel/preset-react": "^7.13.13"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

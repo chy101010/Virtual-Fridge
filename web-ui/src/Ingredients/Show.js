@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { connect, useSelector } from 'react-redux';
+import {ch_join_room} from "../Socket/socket"
 
 function Ingredients() {
   return (
@@ -9,6 +10,7 @@ function Ingredients() {
     </div>
   );
 }
+
 
 let IngredientsDisplay = connect()(({session}) => {
   const ingredients = useSelector(state => state.ingredients).map((i) => (

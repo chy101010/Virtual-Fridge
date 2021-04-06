@@ -1,28 +1,10 @@
 import { createStore, combineReducers } from 'redux';
- 
-function users(state = [], action) {
-    switch (action.type) {
-    case 'users/set':
-        return action.data;
-    default:
-        return state;
-    }
-}
- 
-function user_form(state = {}, action) {
-    switch (action.type) {
-    case 'user_form/set':
-        return action.data;
-    default:
-        return state
-    }
-}
- 
+
 function save_session(sess) {
   let session = Object.assign({}, sess, {time: Date.now()});
   localStorage.setItem("session", JSON.stringify(session));
 }
- 
+  
 function restore_session() {
   let session = localStorage.getItem("session");
   if (!session) {
@@ -42,9 +24,27 @@ function restore_session() {
 function remove_session() {
   localStorage.removeItem("session");
 }
+
+function users(state = [], action) {
+    switch (action.type) {
+    case 'users/set':
+        return action.data;
+    default:
+        return state;
+    }
+}
+
+// #TODO remode
+function user_form(state = {}, action) {
+    switch (action.type) {
+    case 'user_form/set':
+        return action.data;
+    default:
+        return state
+    }
+}
  
 function session(state = restore_session(), action) {
-  console.log("callled");
   switch (action.type) {
     case 'session/set':
       save_session(action.data);
@@ -76,11 +76,21 @@ function error(state = null, action) {
       return state;
   }
 }
+
+function success(state = null, action) {
+  switch (action.type) {
+    case "success/set":
+      return action.data
+    case "error/set":
+      return null;
+    default:
+      return state;
+  }
+}
  
 function root_reducer(state, action) {
-    console.log("root_reducer", state, action);
     let reducer = combineReducers({
-        users, user_form, session, error, ingredients
+        users, user_form, session, error, ingredients, success
     });
     return reducer(state, action);
 }

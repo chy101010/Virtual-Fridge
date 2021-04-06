@@ -3,9 +3,9 @@ import { Nav, Row, Col, Form, Button, Alert } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { useState } from 'react';
-import store from './store';
+import store from '../store';
 
-import { api_login } from './api';
+import { api_login } from '../api';
 
 function LoginForm() {
   const [username, setUsername] = useState("");
