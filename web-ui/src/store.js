@@ -5,7 +5,7 @@ function save_session(sess) {
   localStorage.setItem("session", JSON.stringify(session));
 }
   
-function restore_session() {
+export function restore_session() {
   let session = localStorage.getItem("session");
   if (!session) {
     return null;

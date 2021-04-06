@@ -10,14 +10,12 @@ function Ingredients() {
   );
 }
 
-
 let IngredientsDisplay = connect()(({session}) => {
   const ingredients = useSelector(state => state.ingredients).map((i) => (
     i.ingredient_name	  
   ));
   const [search, setSearch] = useState("");
   const [ingredientsSearch, setIngredientsSearch] = useState(ingredients); 
-  console.log(ingredients);
 
   let ingrs = ingredientsSearch.map((i) => (
     <li>

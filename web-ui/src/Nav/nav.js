@@ -69,6 +69,7 @@ export default function MyNav() {
                 <Nav className="mr-auto">
                     <Link to="/">Home</Link>
                     <Link to="/ingredients">Your Ingredients</Link>
+                    <Link to="/ingredients/add">Add Ingredients</Link>
                     <Link to="/mock">Mock</Link>
                 </Nav>
                 <Nav>

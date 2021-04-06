@@ -26,7 +26,6 @@ export async function api_login(username, password) {
 
 export async function api_get(path) {
   let token = get_token();
-
   let ops = {
     method: 'GET',
     headers: {
@@ -34,16 +33,15 @@ export async function api_get(path) {
     }
   };
   let text = await fetch("http://localhost:4000/api/v1" + path, ops);
-
-  let resp = await text.json();
-  return resp.data;
+  return text.json();
 }
 
-export function fetch_ingredients() {
-  api_get("/ingredients").then((data) => store.dispatch({
+export async function fetch_ingredients() {
+  let data = await api_get("/ingredients");
+  store.dispatch({
     type: 'ingredients/set',
-    data: data,
-  }));
+    data: data.data,
+  })
 }
 
 

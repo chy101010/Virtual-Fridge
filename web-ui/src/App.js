@@ -10,10 +10,17 @@ import Login from './Login/login';
 import Home from './Home/home';
 
 import ShowIngredients from './Ingredients/ingredients';
+import AddIngredients from './Ingredients/add_ingredients';
 import Mock from './Ingredients/Mock'
 import Nav from './Nav/nav';
 
+// Store
+import { restore_session } from './store'
+import { fetch_ingredients } from './api'
+
 function App() {
+	restore_session();
+	fetch_ingredients();
 	return (
 		<Container>
 			<Nav />
@@ -29,6 +36,9 @@ function App() {
 				</Route>
 				<Route path="/ingredients" exact>
 					<ShowIngredients />
+				</Route>
+				<Route path="/ingredients/add" exact>
+					<AddIngredients />
 				</Route>
 				<Route path="/mock" exact>
 					<Mock />

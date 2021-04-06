@@ -11,7 +11,6 @@ defmodule CookingAppWeb.IngredientController do
    # Gets all the available ingredients in the database
   def index(conn, _params) do
     ingredients = Ingredients.list_ingredients()
-    IO.inspect("index ingredient")
     render(conn, "index.json", ingredients: ingredients)
   end
 
