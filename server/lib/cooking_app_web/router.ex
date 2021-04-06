@@ -27,6 +27,7 @@ defmodule CookingAppWeb.Router do
     resources "/ingredients", IngredientController, except: [:delete, :update]
     resources "/owned-ingredients", OwnedIngredientController, except: [:update]
     resources "/recipes", RecipeController, only: [:index]
+    post "/ingredients-search", ApiController, :searchResult
   end
 
   # Other scopes may use custom stacks.
