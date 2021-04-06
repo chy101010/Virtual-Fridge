@@ -4,6 +4,7 @@ defmodule CookingAppWeb.IngredientController do
   alias CookingApp.Ingredients
   alias CookingApp.Ingredients.Ingredient
   alias CookingAppWeb.Plugs
+  alias CookingAppWeb.Helpers
 
   plug Plugs.RequireAuth when action in [:index, :create, :show]
   action_fallback CookingAppWeb.FallbackController
@@ -21,18 +22,27 @@ defmodule CookingAppWeb.IngredientController do
   def create(conn, %{"ingredient" => ingredient_params}) do
     IO.inspect(ingredient_params)
     IO.inspect("create ingredient")
-    db_ingredient = Ingredients.get_ingredient_by_name(ingredient_params["ingredient_name"])
+    ingr = ingredient_params["ingredient_name"]
+    db_ingredient = Ingredients.get_ingredient_by_name(ingr)
+    IO.inspect(db_ingredient)
     if(!db_ingredient) do
-      case Ingredients.create_ingredient(ingredient_params) do
+      case Helpers.getIngredientByName(ingr) do
         {:ok, result} ->
+          case Ingredients.create_ingredient(ingredient_params) do
+            {:ok, result} ->
+              conn
+              |> put_status(:created)
+              |> put_resp_header("location", Routes.ingredient_path(conn, :show, ingredient_params["ingredient_name"]))
+              |> render("show.json", ingredient: result)
+            {:error, %Ecto.Changeset{} = changeset} ->
+              conn
+              |> put_resp_header("content-type", "application/json; charset=UTF-8")
+              |> send_resp(:not_modified, Jason.encode!(%{error: changeset.errors}))
+          end
+        {:error, result} ->
           conn
-          |> put_status(:created)
-          |> put_resp_header("location", Routes.ingredient_path(conn, :show, ingredient_params["ingredient_name"]))
-          |> render("show.json", owned_ingredient: db_ingredient)
-        {:error, %Ecto.Changeset{} = changeset} ->
-          conn
-          |> put_resp_header("content-type", "application/jsonl charset=UTF-8")
-          |> send_resp(:not_modified, Jason.encode!(%{error: changeset.errors}))
+          |> put_resp_header("content-type", "application/json; charset=UTF-8")
+          |> send_resp(:not_acceptable, Jason.encode!(%{error: "Given Ingredient is not valid!"}))
       end
     else
       conn
