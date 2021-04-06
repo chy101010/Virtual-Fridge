@@ -13,6 +13,7 @@ defmodule CookingApp.Room do
     end 
 
     def get_view() do
+    
     end 
     
     def add_ingredient(ingredient) do

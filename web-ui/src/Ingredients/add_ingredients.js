@@ -2,10 +2,21 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { fetch_ingredients, search_ingredient_by_name } from '../api'
 import { Button } from 'react-bootstrap';
+import SearchBar from './search_bar';
 import { create_ingredient, create_owned_ingredient } from '../api';
 
 export default function AddIngredients() {
     let ingredients = useSelector(state => state.ingredients);
+    let new_ingredients = [] 
+    ingredients.map((i) => {
+        new_ingredients.push(
+            {
+                value: i.id,
+                label: i.ingredient_name
+            }
+        )
+    })
+    console.log(ingredients);
     let [search, setSearch] = useState("");
     const [ingredientsSearch, setIngredientsSearch] = useState([]);
     const [newIngredientSearch, setNewIngredientSearch] = useState("");
@@ -60,9 +71,8 @@ export default function AddIngredients() {
             <p>Can't find what you're looking for? Try looking at the Spoonacular database.</p>
             <input type="text" id="addIngredient" onChange={(e) => setNewIngrSearch(e)} placeholder="New Ingredient" />
             <Button onClick={getSearchResults}>search</Button>
-            <ul id="searchUL">
-                
-            </ul>
+            <ul id="searchUL"></ul>
+            <SearchBar ingredients = {new_ingredients} />
         </div>
     )
 }
