@@ -9,7 +9,7 @@ import Register from './Register/register';
 import Login from './Login/login';
 import Home from './Home/home';
 
-import ShowIngredients from './Ingredients/ingredients';
+import OwnIngredients from './Ingredients/own_ingredients';
 import AddIngredients from './Ingredients/add_ingredients';
 import Mock from './Ingredients/Mock'
 import Nav from './Nav/nav';
@@ -35,7 +35,7 @@ function App() {
 					<Register />
 				</Route>
 				<Route path="/ingredients" exact>
-					<ShowIngredients />
+					<OwnIngredients />
 				</Route>
 				<Route path="/ingredients/add" exact>
 					<AddIngredients />

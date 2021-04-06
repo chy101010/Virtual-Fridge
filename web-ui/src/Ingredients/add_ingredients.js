@@ -1,14 +1,13 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux';
 
-
 export default function AddIngredients() {
     let ingredients = useSelector(state => state.ingredients);
     let [search, setSearch] = useState("");
     const [ingredientsSearch, setIngredientsSearch] = useState([]);
 
     let ingrs = ingredientsSearch.map((i) => (
-        <li key={i.id}> {i.ingredient_name} {console.log(i)}</li>
+        <li key={i.id}> {i.ingredient_name}</li>
     ));
 
     function setSearched(e) {
@@ -22,6 +21,10 @@ export default function AddIngredients() {
             let ing = ingredient.ingredient_name.toUpperCase();
             return ing.includes(inp);
         }))
+    }
+
+    function searchButton() {
+        
     }
 
 
