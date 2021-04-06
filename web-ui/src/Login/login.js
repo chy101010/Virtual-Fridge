@@ -16,7 +16,7 @@ export default function Login() {
         let result = await api_login(user.username, user.password);
         if (result.session) {
             store.dispatch({ type: 'session/set', data: result.session });
-            store.dispatch({ type: "success/set", data: `Welcome back ${result.session.name}!` });
+            store.dispatch({ type: "success/set", data: `Welcome back ${result.session.username}!` });
             ch_join();
             history.push('/');
         }

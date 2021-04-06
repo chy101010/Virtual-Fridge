@@ -55,7 +55,7 @@ function Register() {
         store.dispatch({type: "error/set", data: data.error});
       }
       else {
-        store.dispatch({type: "success/set", data: `Hello ${user.name}, You have successfully registered, and now you can Log In!`});
+        store.dispatch({type: "success/set", data: `Hello ${user.username}, You have successfully registered, and now you can Log In!`});
         history.push("/login");
       }
     });

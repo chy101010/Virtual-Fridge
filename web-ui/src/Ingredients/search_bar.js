@@ -6,6 +6,10 @@ import { Button } from 'react-bootstrap';
 
 import Select from 'react-select';
 import { defaultTheme } from 'react-select';
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
+
+import { create_owned_ingredient } from '../api';
 
 const { colors } = defaultTheme;
 
@@ -26,7 +30,22 @@ export default function SearchBar({ingredients}) {
 
     const onSelectChange = value => {
         toggleOpen();
-        setState({ value });
+	confirmAlert({
+	  title: 'Add ' + value.label + ' to your virtual fridge?',
+	  message: 'Please confirm that you are adding this item.',
+	  buttons: [
+	    {
+	      label: 'Yes',
+	      onClick: () => {create_owned_ingredient({ ingredient_name: value.label })
+	                      setState({ value: undefined })}
+	    },
+	    {
+	      label: 'No',
+	      onClick: () => setState({ value: undefined })
+	    }
+	  ]
+	});
+	//setState({ value });
     };
 
     const { isOpen, value } = state;
@@ -40,7 +59,7 @@ export default function SearchBar({ingredients}) {
                     onClick={toggleOpen}
                     isSelected={isOpen}
                 >
-                    {value ? `Ingredient: ${value.label}` : 'Select a Ingredient'}
+                    {value ? `Ingredient: ${value.label}` : 'Select an Ingredient'}
                 </Button>
             }
         >
