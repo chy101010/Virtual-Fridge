@@ -26,10 +26,10 @@ defmodule CookingAppWeb.ApiController do
 
     def getRecipeByIngredients(conn, _) do
         user_id = conn.assigns[:user].id
-        #ingredients = OwnedIngredients.get_owned_ingredient_by_user_id(user_id)
-        #IO.inspect(ingredients)
+        ingredients = OwnedIngredients.get_owned_ingredient_by_user_id(user_id)
+        ingredients = Helpers.ingredientListObjToName(ingredients)
+        IO.inspect(ingredients)
         #TODO: parse ingredients into list of ingredients 
-        ingredients = ["okra", "apple", "bok choy"]
         if(ingredients != []) do
             case Helpers.getRecipeByIngredients(ingredients) do
                 {:ok, result} ->

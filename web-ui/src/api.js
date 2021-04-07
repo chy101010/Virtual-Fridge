@@ -69,6 +69,7 @@ export async function fetch_owned_ingredients() {
 
 export async function fetch_recipes() {
   let data = await api_get("/recipes-by-ingredients");
+  console.log("called fetch")
   store.dispatch({
     type: 'recipes/set',
     data: data

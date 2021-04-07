@@ -1,9 +1,11 @@
 import React from 'react';
 import { useSelector } from "react-redux";
+import { fetch_recipes } from '../api';
 import Login from '../Login/login'
 
 export default function Home() {
     const session = useSelector(state => state.session)
+
     // TODO
     if (session) {
         return (

@@ -1,8 +1,11 @@
 defmodule CookingAppWeb.Helpers do
 
+    alias CookingApp.Ingredients
+
     #TODO make api key an environment variable
     def getApiKey() do
-        "88a684f43c204ecea33e2e0b904f7565"
+        #"88a684f43c204ecea33e2e0b904f7565"
+        "9865beb9a15b40ea99aa5587374a8e47"
     end
 
     #given recipe id, returns {:status, result} where 
@@ -128,4 +131,10 @@ defmodule CookingAppWeb.Helpers do
         end
     end 
     # show a single ingredient by id
+
+    def ingredientListObjToName(list) do
+        Enum.map(list, fn ing ->
+            Ingredients.get_ingredient!(ing.ingredient_id).ingredient_name
+        end)
+    end
 end

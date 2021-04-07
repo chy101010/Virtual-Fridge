@@ -12,7 +12,6 @@ import Home from './Home/home';
 import ShowRecipes from './Recipes/my_recipes';
 import OwnIngredients from './Ingredients/own_ingredients';
 import AddIngredients from './Ingredients/add_ingredients';
-import Mock from './Ingredients/Mock'
 import Nav from './Nav/nav';
 
 // Store
@@ -42,9 +41,6 @@ function App() {
 				</Route>
 				<Route path="/ingredients/add" exact>
 					<AddIngredients />
-				</Route>
-				<Route path="/mock" exact>
-					<Mock />
 				</Route>
 				<Route path="/recipes" exact>
 					<ShowRecipes />

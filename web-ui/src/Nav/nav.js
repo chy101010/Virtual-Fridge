@@ -74,7 +74,6 @@ export default function MyNav() {
                     <Link to="/">Home</Link>
                     <Link to="/ingredients">Your Ingredients</Link>
                     <Link to="/ingredients/add">Add Ingredients/Recipes</Link>
-                    <Link to="/mock">Mock</Link>
                     <Link to="/recipes">Recipes</Link>
                 </Nav>
                 <Nav>
