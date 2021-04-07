@@ -24,6 +24,7 @@ defmodule CookingAppWeb.IngredientController do
   
   def create(conn, %{"ingredient" => ingredient_params}) do
     ingr = ingredient_params["ingredient_name"]
+
     db_ingredient = Ingredients.get_ingredient_by_name(ingr)
     if(!db_ingredient) do
       case Ingredients.create_ingredient(ingredient_params) do

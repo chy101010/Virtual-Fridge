@@ -12,7 +12,7 @@ export default function AddIngredients() {
     let newIngrs = newIngredientQuery.map((i) => (
         <li key={i.id}> 
             {titleCase(i.name)}
-            <Button onClick={() => addNewIngredient(i.name)}>Add</Button>
+            <Button onClick={() => addNewIngredient(i)}>Add</Button>
             <Button onClick={() => getIngredientInfo(i.id)}>Info</Button>
         </li>
     ));
@@ -51,7 +51,8 @@ export default function AddIngredients() {
 
     function addNewIngredient(ingredient) {
         let data = {
-            ingredient_name: ingredient
+            ingredient_name: titleCase(ingredient.name),
+            spoonacular_id: ingredient.id
         }
         create_ingredient(data);
     }
