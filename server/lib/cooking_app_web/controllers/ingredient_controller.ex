@@ -29,6 +29,7 @@ defmodule CookingAppWeb.IngredientController do
     if(!db_ingredient) do
       case Ingredients.create_ingredient(ingredient_params) do
         {:ok, result} ->
+          # Socket broadcast
           Room.add_ingredient(Map.put(ingredient_params, "username", conn.assigns[:user].username))
           conn
           |> put_status(:created)
