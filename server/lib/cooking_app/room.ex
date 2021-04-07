@@ -16,17 +16,28 @@ defmodule CookingApp.Room do
         GenServer.call(:room, :view)
     end 
     
-    def add_ingredient(ingredient) do
-    
+    def add_ingredient(data) do
+        GenServer.cast(:room, {:add_ingredient, data})
     end 
 
-    def add_recipe(recipe) do
-    
+    def add_recipe(data) do
+        GenServer.cast(:room, {:add_recipe, data})
     end 
 
     @impl
     def handle_call(:view, _from, state) do
-        IO.inspect("called Socket")
-        {:reply, %{}, state}
+        IO.inspect("called Handle_call Room View")
+        {:noreply, state}
+    end 
+
+    @impl 
+    def handle_cast({:add_recipe, data}, _from, state) do
+        IO.inspect("called Handle_cast add receipe")
+        {:noreply, RoomState.add_recipe(state, data)}
+    end 
+
+    def handle_cast({:add_ingredient, data}, _from, state) do
+        IO.inspect("called Handle_cast add receipe")
+        {:noreply, RoomState.add_ingredient(state, data)}
     end 
 end 
