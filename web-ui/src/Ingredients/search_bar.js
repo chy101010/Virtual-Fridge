@@ -30,7 +30,7 @@ const DropdownIndicator = () => (
     </div>
 );
 
-export default function SearchBar({ingredients}) {
+export default function SearchBar({ ingredients }) {
     const [state, setState] = useState({
         isOpen: false,
         value: undefined,
@@ -42,22 +42,23 @@ export default function SearchBar({ingredients}) {
 
     const onSelectChange = value => {
         toggleOpen();
-	confirmAlert({
-	  title: 'Add ' + value.label + ' to your virtual fridge?',
-	  message: 'Please confirm that you are adding this item.',
-	  buttons: [
-	    {
-	      label: 'Yes',
-	      onClick: () => {create_owned_ingredient({ ingredient_name: value.label })
-	                      setState({ value: undefined })}
-	    },
-	    {
-	      label: 'No',
-	      onClick: () => setState({ value: undefined })
-	    }
-	  ]
-	});
-	//setState({ value });
+        confirmAlert({
+            title: 'Add ' + value.label + ' to your virtual fridge?',
+            message: 'Please confirm that you are adding this item.',
+            buttons: [
+                {
+                    label: 'Yes',
+                    onClick: () => {
+                        create_owned_ingredient({ ingredient_name: value.label })
+                        setState({ value: undefined })
+                    }
+                },
+                {
+                    label: 'No',
+                    onClick: () => setState({ value: undefined })
+                }
+            ]
+        });
     };
 
     const { isOpen, value } = state;
@@ -71,7 +72,7 @@ export default function SearchBar({ingredients}) {
                     onClick={toggleOpen}
                     isSelected={isOpen}
                 >
-                    {value ? `Ingredient: ${value.label}` : 'Select an Ingredient'}
+                    {value ? `Ingredient: ${value.label}` : 'Add Ingredient To Your Virtual Fridge'}
                 </Button>
             }
         >
