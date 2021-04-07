@@ -65,7 +65,7 @@ export async function api_delete(path, data) {
   let text = await fetch(
     "http://localhost:4000/api/v1" + path, opts);
     console.log(text, "hello")
-  return text.json();
+  return text;
 }
 
 export async function fetch_ingredients() {
