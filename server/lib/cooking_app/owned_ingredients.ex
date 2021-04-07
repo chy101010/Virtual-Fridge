@@ -44,7 +44,8 @@ defmodule CookingApp.OwnedIngredients do
    end
 
    def get_owned_ingredient_by_user_id(user_id) do
-     Repo.get_by(OwnedIngredient, user_id: user_id);
+     query = from(OwnedIngredient, where: [user_id: ^user_id])
+     Repo.all(query)
    end
 
   @doc """

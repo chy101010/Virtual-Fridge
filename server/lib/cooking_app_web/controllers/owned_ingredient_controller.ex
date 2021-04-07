@@ -16,20 +16,27 @@ defmodule CookingAppWeb.OwnedIngredientController do
   # Gets all the owned_ingredient of the current user
   def index(conn, _params) do
     user_id = conn.assigns[:user].id
-    ownedingredients = OwnedIngredients.get_owned_ingredient_by_user_id(user_id)
+    ownedingredients = get_ingredient_names(OwnedIngredients.get_owned_ingredient_by_user_id(user_id))
     render(conn, "index.json", ownedingredients: ownedingredients)
+  end
+
+  defp get_ingredient_names(l) do
+    if length(l) == 0 do
+      []
+    else
+      [Map.put(hd(l), :ingredient_name, Ingredients.get_ingredient!(hd(l).ingredient_id).ingredient_name)] ++ get_ingredient_names(tl(l))
+    end
   end
  
   # Creates owned_ingredient
   # owned_ingredient_params = {"ingredient_name": ingredient_name}
   # Checks whether the ingredient's name is valid and the current user doesn't have a duplicate  
   def create(conn, %{"owned_ingredient" => owned_ingredient_params}) do
-    IO.inspect("called Create")
     Room.get_view()
     user_id = conn.assigns[:user].id
     ingredient_id = Ingredients.get_ingredient_id_by_name(owned_ingredient_params["ingredient_name"]);
     if(ingredient_id) do
-      params = %{"user_id": user_id, "ingredient_id": ingredient_id}
+      params = %{"user_id": user_id, "ingredient_id": ingredient_id.id}
       res = OwnedIngredients.create_owned_ingredient(params)
       case res do
         {:ok, result} ->
