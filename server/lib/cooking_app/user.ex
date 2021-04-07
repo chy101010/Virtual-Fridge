@@ -1,6 +1,7 @@
  
 defmodule CookingApp.User do
     alias CookingApp.UserHelper
+    alias CookingApp.Room 
 
     def reg(gameName) do
         {:via, Registry, {CookingApp.Registry, gameName}}
@@ -15,12 +16,15 @@ defmodule CookingApp.User do
         }
         CookingApp.Sup.start_child(spec);
     end 
-    
 
-    def start_link(user) do
-        user = UserHelper.new(user)
-
+    def start_link(username) do
+        user = UserHelper.new(username)
+        GenServer.start_link(__MODULE__, user, name: reg(username))
     end
 
-
+    def handle_info({:update, username}, state) do
+        Process.send_after(self(), {:update, username}, 30000)
+        CookingApp.Endpoint.broadcast("room:" <> username, "view", Room.view())
+        {:noreply, state}
+    end  
 end

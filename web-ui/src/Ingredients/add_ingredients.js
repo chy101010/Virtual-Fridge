@@ -5,6 +5,8 @@ import { Button } from 'react-bootstrap';
 import SearchBar from './search_bar';
 import { create_ingredient, create_owned_ingredient } from '../api';
 
+import { ch_get_test } from '../Socket/socket'
+
 export default function AddIngredients() {
     let ingredients = useSelector(state => state.ingredients);
     let new_ingredients = [] 
@@ -96,6 +98,8 @@ export default function AddIngredients() {
             </ul>
 
             <SearchBar ingredients = {new_ingredients} />
+
+            <Button onClick={ch_get_test}>Testing</Button>
         </div>
     )
 }

@@ -6,6 +6,9 @@ defmodule CookingAppWeb.IngredientController do
   alias CookingAppWeb.Plugs
   alias CookingAppWeb.Helpers
 
+  # Room State
+  alias CookingApp.Room
+
   plug Plugs.RequireAuth when action in [:index, :create, :show]
   action_fallback CookingAppWeb.FallbackController
 
@@ -20,14 +23,12 @@ defmodule CookingAppWeb.IngredientController do
   # ingredient_params = {"ingredient_name", name}
   
   def create(conn, %{"ingredient" => ingredient_params}) do
-    IO.inspect(ingredient_params)
-    IO.inspect("create ingredient")
     ingr = ingredient_params["ingredient_name"]
     db_ingredient = Ingredients.get_ingredient_by_name(ingr)
-    IO.inspect(db_ingredient)
     if(!db_ingredient) do
       case Ingredients.create_ingredient(ingredient_params) do
         {:ok, result} ->
+          Room.add_ingredient(Map.put(ingredient_params, "username", conn.assigns[:user].username))
           conn
           |> put_status(:created)
           |> put_resp_header("location", Routes.ingredient_path(conn, :show, ingredient_params["ingredient_name"]))
