@@ -91,7 +91,7 @@ function AppNav({error}) {
           <Nav variant="pills">
             <Link to="/">Feed</Link>
             <Link to="/users">Users</Link>
-	    <Link to="/ingredients">Your Ingredients</Link>
+	    <Link to="/ingredients">Your Ingredients/Recipes</Link>
       <Link to="/mock">Mock</Link>
           </Nav>
         </Col>

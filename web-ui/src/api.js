@@ -59,6 +59,13 @@ export async function fetch_ingredients() {
   })
 }
 
+export async function fetch_owned_ingredients() {
+  let data = await api_get("/owned-ingredients");
+  store.dispatch({
+    type: 'ownedingredients/set',
+    data: data.data
+  })
+}
 
 // Post with out x-auth
 // Post with x-auth
