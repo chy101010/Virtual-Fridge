@@ -16,10 +16,10 @@ export default function AddIngredients() {
             }
         )
     })
-    console.log(ingredients);
     let [search, setSearch] = useState("");
     const [ingredientsSearch, setIngredientsSearch] = useState([]);
     const [newIngredientSearch, setNewIngredientSearch] = useState("");
+    const [newIngredientQuery, setNewIngredientQuery] = useState([]);
 
     useEffect(() =>{
         fetch_ingredients();
@@ -31,6 +31,21 @@ export default function AddIngredients() {
             <Button>Add</Button>
         </li>
     ));
+    
+    let newIngrs = newIngredientQuery.map((i) => (
+        <li> 
+            {i}
+            <Button onClick={() => addNewIngredient(i)}>Add</Button>
+        </li>
+    ));
+
+    function addNewIngredient(ingredient) {
+        let data = {
+            ingredient_name: ingredient
+        }
+        create_ingredient(data);
+    }
+
 
     function setSearched(e) {
         setSearch(e.target.value);
@@ -53,10 +68,13 @@ export default function AddIngredients() {
         let data = {
             ingredient_name: newIngredientSearch
         }    
-        search_ingredient_by_name(data).then(() => {
-            console.log("helllllo");
-            console.log(data)
-        });
+        search_ingredient_by_name(data).then((result) => {
+            let arr = [];
+            result.results.forEach(i => {
+            arr.push(i.name);
+            });
+            setNewIngredientQuery(arr);
+        })
     }
 
     return (
@@ -73,7 +91,9 @@ export default function AddIngredients() {
             <p>Can't find what you're looking for? Try looking at the Spoonacular database.</p>
             <input type="text" id="addIngredient" onChange={(e) => setNewIngrSearch(e)} placeholder="New Ingredient" />
             <Button onClick={getSearchResults}>search</Button>
-            <ul id="searchUL"></ul>
+            <ul id="searchUL">
+                {newIngrs}
+            </ul>
 
             <SearchBar ingredients = {new_ingredients} />
         </div>
