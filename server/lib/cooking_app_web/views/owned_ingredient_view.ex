@@ -7,10 +7,19 @@ defmodule CookingAppWeb.OwnedIngredientView do
   end
 
   def render("show.json", %{owned_ingredient: owned_ingredient}) do
-    %{data: render_one(owned_ingredient, OwnedIngredientView, "owned_ingredient.json")}
+    %{data: render_one(owned_ingredient, OwnedIngredientView, "owned_ingredient_single.json")}
+  end
+
+  def render("owned_ingredient_single.json", %{owned_ingredient: owned_ingredient}) do
+    %{id: owned_ingredient.id,
+      ingredient_id: owned_ingredient.ingredient_id,
+      user_id: owned_ingredient.user_id}
   end
 
   def render("owned_ingredient.json", %{owned_ingredient: owned_ingredient}) do
-    %{id: owned_ingredient.id}
+    %{id: owned_ingredient.id,
+      ingredient_id: owned_ingredient.ingredient_id,
+      ingredient_name: owned_ingredient.ingredient_name,
+      user_id: owned_ingredient.user_id}
   end
 end
