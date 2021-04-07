@@ -29,7 +29,7 @@ export default function AddIngredients() {
                           `Aisle location: ${result.aisle} \\n`],
                 buttons: [
                     {
-                        label: 'Close'
+                        label: 'Close.'
                     }
                 ],
                 closeOnEscape: true,
