@@ -69,7 +69,7 @@ export default function MyNav() {
     return (
         <div>
             <Navbar bg="light">
-                <Navbar.Brand>Events App</Navbar.Brand>
+                <Navbar.Brand>Cooking App</Navbar.Brand>
                 <Nav className="mr-auto">
                     <Link to="/">Home</Link>
                     <Link to="/ingredients">Your Ingredients</Link>

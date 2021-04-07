@@ -18,7 +18,7 @@ defmodule CookingAppWeb.Helpers do
     #error returns empty result
     def getRecipeById(id) do
         api_key = getApiKey()
-        url = "https://api.spoonacular.com/recipes/716429/information?apiKey=#{api_key}&includeNutrition=true"
+        url = "https://api.spoonacular.com/recipes/#{id}/information?apiKey=#{api_key}&includeNutrition=true"
         resp = HTTPoison.get!(url)
         #if 200 status code
         if resp.status_code == 200 do
@@ -130,8 +130,8 @@ defmodule CookingAppWeb.Helpers do
             {:error, result}
         end
     end 
-    # show a single ingredient by id
 
+    #Converts OwnedIngredient obj to ingredient name in a list
     def ingredientListObjToName(list) do
         Enum.map(list, fn ing ->
             Ingredients.get_ingredient!(ing.ingredient_id).ingredient_name

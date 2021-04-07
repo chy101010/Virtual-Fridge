@@ -1,3 +1,4 @@
+import { identity } from 'lodash';
 import store from './store';
 
 export function get_token() {
@@ -49,6 +50,21 @@ export async function api_get(path) {
   };
   let text = await fetch("http://localhost:4000/api/v1" + path, ops);
   return text.json();
+}
+
+export async function api_delete(path, data) {
+  let token = get_token();
+  let opts = {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-auth': token
+    },
+    body: JSON.stringify(data),
+  };
+  let text = await fetch(
+    "http://localhost:4000/api/v1" + path, opts);
+  return await text.json();
 }
 
 export async function fetch_ingredients() {
@@ -107,6 +123,14 @@ export function create_owned_ingredient(owned_ingredient) {
 
 export function search_ingredient_by_name(ingredient) {
   return api_post("/ingredients-search", {ingredient})
+}
+
+export function get_recipe_by_id(recipe) {
+  return api_post("/recipe-by-id", {recipe})
+}
+
+export function delete_owned_ingredient(owned_ingredient) {
+  return api_delete(`/owned-ingredients/${owned_ingredient.id}`, owned_ingredient)
 }
 
 // export function load_defaults() {

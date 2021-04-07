@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, ListGroup, ListGroupItem} from 'react-bootstrap';
-import { fetch_recipes } from "../api";
+import { fetch_recipes, get_recipe_by_id } from "../api";
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 
@@ -22,10 +22,20 @@ export default function ShowRecipes() {
                     <ListGroupItem>Unused Ingredients: <span className="text-warning">{recipeList[ii].unusedIngredients.join(", ")}</span> </ListGroupItem>
                 </ListGroup>
                 <Card.Body>
-                    <Card.Link href="#">Learn More</Card.Link>
+                    <Card.Link href="#" onClick={() => fetchSource(recipeList[ii].id)}>Learn More</Card.Link>
                 </Card.Body>
             </Card>
         )
+    }
+
+    function fetchSource(id) {
+        let data = {
+            "id": id
+        }
+        console.log(id);
+        get_recipe_by_id(data).then((result) => {
+            window.open(result.sourceUrl, "_blank");
+        })
     }
 
     useEffect(() => {
