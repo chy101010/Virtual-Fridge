@@ -1,10 +1,9 @@
 import React from "react";
-import { Button, Container } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 // Components
-import StickyHeadTable from './table';
 import SearchBar from './search_bar';
 
 import { delete_owned_ingredient, fetch_owned_ingredients, fetch_ingredients} from '../api';
@@ -53,7 +52,6 @@ export default function OwnIngredients() {
                     <SearchBar ingredients={display_ingredients} />
                   </div>
                   <ul>
-                    <StickyHeadTable />
                     {ingrs}
                   </ul>
                 </div>
