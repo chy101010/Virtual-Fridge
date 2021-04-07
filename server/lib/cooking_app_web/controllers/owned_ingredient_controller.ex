@@ -9,7 +9,7 @@ defmodule CookingAppWeb.OwnedIngredientController do
   # Room process
   alias CookingApp.Room
  
-  #plug Plugs.RequireAuth when action in [:index, :create, :show, :delete]
+  plug Plugs.RequireAuth when action in [:index, :create, :show, :delete]
   action_fallback CookingAppWeb.FallbackController
  
  
