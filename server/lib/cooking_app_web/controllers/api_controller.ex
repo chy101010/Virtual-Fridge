@@ -4,6 +4,9 @@ defmodule CookingAppWeb.ApiController do
     alias CookingAppWeb.Helpers
     alias CookingApp.OwnedIngredients
     alias CookingAppWeb.Plugs
+    
+    # Socket
+    alias CookingApp.Room
 
     plug Plugs.RequireAuth when action in [:searchResult, :getRecipeByIngredients]
     action_fallback CookingAppWeb.FallbackController
@@ -24,14 +27,24 @@ defmodule CookingAppWeb.ApiController do
         end
     end 
 
+    defp loop_broadcast_recipe(recipes, start, dest) do
+        if(start < dest) do
+            Room.add_recipe(Enum.at(recipes, start))
+            loop_broadcast_recipe(recipes, start + 1, dest)
+        else 
+            0
+        end 
+    end  
+
     def getRecipeByIngredients(conn, _) do
         user_id = conn.assigns[:user].id
         ingredients = OwnedIngredients.get_owned_ingredient_by_user_id(user_id)
         ingredients = Helpers.ingredientListObjToName(ingredients)
-        IO.inspect(ingredients)
         if(ingredients != []) do
             case Helpers.getRecipeByIngredients(ingredients) do
                 {:ok, result} ->
+                    recipes = Enum.map(result, fn recipe -> %{"username": conn.assigns[:user].username, "recipe_name": recipe.title} end)
+                    loop_broadcast_recipe(recipes, 0, length(recipes))
                     conn 
                     |> put_resp_header("content-type", "application/jsonl charset=UTF-8")
                     |> send_resp(:ok, Jason.encode!(result))

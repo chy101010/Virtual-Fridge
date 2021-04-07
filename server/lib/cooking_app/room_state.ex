@@ -19,7 +19,7 @@ defmodule CookingApp.RoomState do
     # TODO: Polish 
     # recipe = %{username: username, recipe: recipe} 
     def add_recipe(state, recipe) do
-        if(state.recipe_index == 50) do
+        if(state.recipe_index == 100) do
             state1 = %{state | recipe_index: 0}
             add_recipe_helper(state1, recipe)
         else 

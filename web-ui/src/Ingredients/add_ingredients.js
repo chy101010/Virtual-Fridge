@@ -3,6 +3,7 @@ import { search_ingredient_by_name, get_ingredient_by_id } from '../api'
 import { Button } from 'react-bootstrap';
 import { create_ingredient } from '../api';
 import { confirmAlert } from 'react-confirm-alert';
+import SimpleModal from './simple_modal';
 
 
 export default function AddIngredients() {
@@ -13,30 +14,9 @@ export default function AddIngredients() {
         <li key={i.id}> 
             {titleCase(i.name)}
             <Button onClick={() => addNewIngredient(i)}>Add</Button>
-            <Button onClick={() => getIngredientInfo(i.id)}>Info</Button>
+            <SimpleModal ingredientId={i.id} />
         </li>
     ));
-
-    function getIngredientInfo(id) {
-        let data = {
-            "id": id
-        }
-        get_ingredient_by_id(data).then((result) => {
-            console.log(result);
-            confirmAlert({
-                title: `${titleCase(result.name)}`,
-                message: [`Cost: ${result.cost.value} ${result.cost.unit} / ${result.unit} \\n`,
-                          `Aisle location: ${result.aisle} \\n`],
-                buttons: [
-                    {
-                        label: 'Close.'
-                    }
-                ],
-                closeOnEscape: true,
-                closeOnClickOutside: true,
-            });
-        });
-    }
 
     function titleCase(str) {
         var splitStr = str.toLowerCase().split(' ');

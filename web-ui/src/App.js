@@ -16,9 +16,9 @@ import Nav from './Nav/nav';
 
 // Store
 import { restore_session } from './store'
-import { ch_join } from "./Socket/socket"
-// Socket 
-// import 
+
+// Socket
+import { ch_join } from './Socket/socket'
 
 function App() {
 	ch_join();

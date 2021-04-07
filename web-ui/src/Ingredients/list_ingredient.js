@@ -38,6 +38,10 @@ function removeOwnedIngredient(id) {
     delete_owned_ingredient(data);
 }
 
+function fetchIngredientInfo(id) {
+    
+}
+
 export default function InteractiveList({ ingredients }) {
     const classes = useStyles();
     let ingredients_row = [];
@@ -55,8 +59,8 @@ export default function InteractiveList({ ingredients }) {
                 <ListItemSecondaryAction>
                     <IconButton onClick={() => removeOwnedIngredient(ingredients[ii].id)} edge="end" aria-label="delete">
                         <DeleteForeverRoundedIcon />
-                    </IconButton>
-                    <IconButton edge="end" aria-label="delete">
+                    </IconButton >
+                    <IconButton edge="end" aria-label="delete" onClick={() => fetchIngredientInfo(ingredients[ii].id)}>
                         <ContactSupportRoundedIcon />
                     </IconButton>
                 </ListItemSecondaryAction>

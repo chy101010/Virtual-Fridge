@@ -7,6 +7,7 @@
     "@material-ui/icons": "^4.11.2",
     "bootstrap": "^4.6.0",
     "lodash": "^4.17.21",
+    "material-ui": "^0.20.2",
     "node-sass": "^5.0.0",
     "phoenix": "^1.5.8",
     "phoenix-socket": "^1.2.3",
