@@ -23,5 +23,5 @@ end
 
 File.stream!("././ingredients.csv")
 |> Stream.drop(1)
-|> CSV.decode(headers: [:ingredient_name])
+|> CSV.decode(headers: [:ingredient_name, :spoonacular_id])
 |> Enum.each(&CookingApp.Seeds.store_it/1)
