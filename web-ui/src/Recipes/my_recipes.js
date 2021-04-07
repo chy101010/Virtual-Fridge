@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, ListGroup, ListGroupItem} from 'react-bootstrap';
+import { Card, ListGroup, ListGroupItem } from 'react-bootstrap';
 import { fetch_recipes, get_recipe_by_id } from "../api";
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
@@ -11,8 +11,8 @@ export default function ShowRecipes() {
     let recipes = [];
     for (let ii = 0; ii < recipeList.length; ii++) {
         recipes.push(
-            <Card className="ml-5 mt-2" key={recipeList[ii].id} style={{ width: '20rem'} }>
-                <img variant="top" src={recipeList[ii].image} />
+            <Card className="ml-5 mt-2" key={recipeList[ii].id} style={{ width: '20rem' }}>
+                <img variant="top" src={recipeList[ii].image} alt="Food" />
                 <Card.Body>
                     <Card.Title>{recipeList[ii].title}</Card.Title>
                 </Card.Body>

@@ -27,12 +27,12 @@ export function socket_disconnect() {
     socket.disconnect();
 }
 
-export function ch_get_test() {
-    channel.push("get", "")
-    .receive("ok", resp => {
-        console.log(resp)
-    })
-    .receive("error", resp => {
-        console.log(resp);
-    })
-}
+// export function ch_get_test() {
+//     channel.push("get", "")
+//     .receive("ok", resp => {
+//         console.log(resp)
+//     })
+//     .receive("error", resp => {
+//         console.log(resp);
+//     })
+// }

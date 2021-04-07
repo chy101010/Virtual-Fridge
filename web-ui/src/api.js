@@ -1,4 +1,3 @@
-import { identity } from 'lodash';
 import store from './store';
 
 export function get_token() {
@@ -127,6 +126,10 @@ export function search_ingredient_by_name(ingredient) {
 
 export function get_recipe_by_id(recipe) {
   return api_post("/recipe-by-id", {recipe})
+}
+
+export function get_ingredient_by_id(ingredient) {
+  return api_post("/ingredient-by-id", {ingredient})
 }
 
 export function delete_owned_ingredient(owned_ingredient) {

@@ -84,10 +84,8 @@ defmodule CookingAppWeb.OwnedIngredientController do
   # Checks whether the current user has that ingredient - plug?
   def delete(conn, %{"id" => id}) do
     user_id = conn.assigns[:user].id
-    IO.inspect(id)
     owned_ingredient = OwnedIngredients.get_owned_ingredient!(String.to_integer(id))
     if(owned_ingredient) do
-      IO.inspect(owned_ingredient)
       if(owned_ingredient.user_id === user_id) do
         case OwnedIngredients.delete_owned_ingredient(owned_ingredient) do
           {:ok, %OwnedIngredient{}} ->

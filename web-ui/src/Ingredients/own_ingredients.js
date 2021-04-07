@@ -1,13 +1,32 @@
-import { Button } from "react-bootstrap";
 import React from "react";
+import { Button, Container } from "react-bootstrap";
 import { useEffect } from 'react';
-import { connect, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-import { delete_owned_ingredient, fetch_owned_ingredients } from '../api';
+// Components
+import StickyHeadTable from './table';
+import SearchBar from './search_bar';
+
+import { delete_owned_ingredient, fetch_owned_ingredients, fetch_ingredients} from '../api';
 
 export default function OwnIngredients() {
+  const session = useSelector(state => state.session);
+  const owned_ingredients = useSelector(state => state.ownedingredients);
+  const ingredients = useSelector(state => state.ingredients);
+  
+
+  let display_ingredients = [] 
+  for(let ii = 0; ii < ingredients.length; ii++) {
+    display_ingredients.push(
+      {
+          value: ingredients[ii].id,
+          label: ingredients[ii].ingredient_name
+      }
+    )
+  }
 
   useEffect(() => {
+    fetch_ingredients();
     fetch_owned_ingredients();
   }, [])
 
@@ -18,10 +37,7 @@ export default function OwnIngredients() {
     delete_owned_ingredient(data);
   }
 
-  const session = useSelector(state => state.session);
-  const ingredients = useSelector(state => state.ownedingredients);
-  console.log(ingredients);
-  let ingrs = ingredients.map((i) => (
+  let ingrs = owned_ingredients.map((i) => (
         <li key={i.id}> 
             {i.ingredient_name}
             <Button onClick={() => removeOwnedIngredient(i.id)}>remove</Button>
@@ -32,9 +48,15 @@ export default function OwnIngredients() {
         return (
             <div>
               <h2>Here Are Your Ingredients</h2>
-              <ul>
-                {ingrs}
-              </ul>
+                <div className="Container">
+                  <div className="row justify-content-center">
+                    <SearchBar ingredients={display_ingredients} />
+                  </div>
+                  <ul>
+                    <StickyHeadTable />
+                    {ingrs}
+                  </ul>
+                </div>
             </div>
         )
     }

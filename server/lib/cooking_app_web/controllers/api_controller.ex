@@ -60,4 +60,18 @@ defmodule CookingAppWeb.ApiController do
                 |> send_resp(:not_acceptable, Jason.encode!(%{error: "API Error"}))
         end
     end
+    
+    def ingredientInfo(conn, %{"ingredient" => ingredient_params}) do
+        ingredient_id = ingredient_params["id"]
+        case Helpers.getIngredientById(ingredient_id) do
+            {:ok, result} ->
+                conn 
+                |> put_resp_header("content-type", "application/jsonl charset=UTF-8")
+                |> send_resp(:ok, Jason.encode!(result))
+            {:error, _} ->
+                conn 
+                |> put_resp_header("content-type", "application/json; charset=UTF-8")
+                |> send_resp(:not_acceptable, Jason.encode!(%{error: "API Error"}))
+        end
+    end
 end

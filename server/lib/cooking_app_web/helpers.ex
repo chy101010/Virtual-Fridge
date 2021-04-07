@@ -36,6 +36,28 @@ defmodule CookingAppWeb.Helpers do
         end
         
     end
+    
+    def getIngredientById(id) do
+        api_key = getApiKey()
+        url = "https://api.spoonacular.com/food/ingredients/#{id}/information?apiKey=#{api_key}&amount=1"
+        resp = HTTPoison.get!(url)
+        #if 200 status code
+        if resp.status_code == 200 do
+            data = Jason.decode!(resp.body)
+            result = %{
+                id: data["id"],
+                name: data["original"],
+                unit: data["unit"],
+                cost: data["estimatedCost"],
+                aisle: data["aisle"],
+                nutrition: data["nutrition"]
+            }
+            {:ok, result}
+        else
+            result = %{}
+            {:error, result}
+        end
+    end
 
     # converts a list to a comma separated string array
     # Input: [a, b, c, d, e, f]
@@ -59,9 +81,15 @@ defmodule CookingAppWeb.Helpers do
         #name: "b"
     #}]
     #Output: [a, b]
-
     def cleanIngrList(data) do
         Enum.map(data, fn ing -> ing["name"] end)
+    end
+
+    #cleans spoonacular's list of ingredients dict to list of dicts with name and id
+    def cleanIngrListWithId(data) do
+        Enum.map(data, fn ing -> 
+            %{"name": ing["name"], "id": ing["id"]} 
+        end)
     end
 
 
@@ -117,12 +145,12 @@ defmodule CookingAppWeb.Helpers do
     """
     def getIngredientByName(name) do
         api_key = getApiKey()
-        url = "https://api.spoonacular.com/food/ingredients/search?apiKey=#{api_key}&query=#{name}"
+        url = "https://api.spoonacular.com/food/ingredients/autocomplete?apiKey=#{api_key}&query=#{name}&number=10&metaInformation=true"
         resp = HTTPoison.get!(url)
         if resp.status_code == 200 do
             data = Jason.decode!(resp.body)
             result = %{
-                results: data["results"]
+                results: cleanIngrListWithId(data)
             }
             {:ok, result}
         else

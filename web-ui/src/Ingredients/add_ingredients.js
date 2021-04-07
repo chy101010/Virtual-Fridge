@@ -1,45 +1,53 @@
-import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux';
-import { fetch_ingredients, search_ingredient_by_name } from '../api'
+import React, { useState } from 'react'
+import { search_ingredient_by_name, get_ingredient_by_id } from '../api'
 import { Button } from 'react-bootstrap';
-import SearchBar from './search_bar';
-import { create_ingredient, create_owned_ingredient } from '../api';
+import { create_ingredient } from '../api';
+import { confirmAlert } from 'react-confirm-alert';
 
-import { ch_get_test } from '../Socket/socket'
 
 export default function AddIngredients() {
-    let ingredients = useSelector(state => state.ingredients);
-    let new_ingredients = [] 
-    ingredients.map((i) => {
-        new_ingredients.push(
-            {
-                value: i.id,
-                label: i.ingredient_name
-            }
-        )
-    })
-    let [search, setSearch] = useState("");
-    const [ingredientsSearch, setIngredientsSearch] = useState([]);
     const [newIngredientSearch, setNewIngredientSearch] = useState("");
     const [newIngredientQuery, setNewIngredientQuery] = useState([]);
 
-    useEffect(() =>{
-        fetch_ingredients();
-    }, [])
-
-    let ingrs = ingredientsSearch.map((i) => (
-        <li key={i.id}> 
-            {i.ingredient_name}
-            <Button>Add</Button>
-        </li>
-    ));
-    
     let newIngrs = newIngredientQuery.map((i) => (
-        <li> 
-            {i}
-            <Button onClick={() => addNewIngredient(i)}>Add</Button>
+        <li key={i.id}> 
+            {titleCase(i.name)}
+            <Button onClick={() => addNewIngredient(i.name)}>Add</Button>
+            <Button onClick={() => getIngredientInfo(i.id)}>Info</Button>
         </li>
     ));
+
+    function getIngredientInfo(id) {
+        let data = {
+            "id": id
+        }
+        get_ingredient_by_id(data).then((result) => {
+            console.log(result);
+            confirmAlert({
+                title: `${titleCase(result.name)}`,
+                message: [`Cost: ${result.cost.value} ${result.cost.unit} / ${result.unit} \\n`,
+                          `Aisle location: ${result.aisle} \\n`],
+                buttons: [
+                    {
+                        label: 'Close'
+                    }
+                ],
+                closeOnEscape: true,
+                closeOnClickOutside: true,
+            });
+        });
+    }
+
+    function titleCase(str) {
+        var splitStr = str.toLowerCase().split(' ');
+        for (var i = 0; i < splitStr.length; i++) {
+            // You do not need to check if i is larger than splitStr length, as your for does that for you
+            // Assign it back to the array
+            splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);     
+        }
+        // Directly return the joined string
+        return splitStr.join(' '); 
+    }
 
     function addNewIngredient(ingredient) {
         let data = {
@@ -48,22 +56,8 @@ export default function AddIngredients() {
         create_ingredient(data);
     }
 
-
-    function setSearched(e) {
-        setSearch(e.target.value);
-    }
-
     function setNewIngrSearch(e) {
         setNewIngredientSearch(e.target.value);
-    }
-
-    function filterIngredients() {
-        let inp = search.toUpperCase();
-        let newList = ingredients;
-        setIngredientsSearch(newList.filter(ingredient => {
-            let ing = ingredient.ingredient_name.toUpperCase();
-            return ing.includes(inp);
-        }))
     }
     
     function getSearchResults() {
@@ -73,7 +67,10 @@ export default function AddIngredients() {
         search_ingredient_by_name(data).then((result) => {
             let arr = [];
             result.results.forEach(i => {
-            arr.push(i.name);
+                arr.push({
+                    "name": i.name,
+                    "id": i.id
+                });
             });
             setNewIngredientQuery(arr);
         })
@@ -83,23 +80,12 @@ export default function AddIngredients() {
         <div >
             <h3>Add Ingredients</h3>
             
-            <p>Add an ingredient to your virtual fridge! Search through out preset list of up to one thousand ingredients.</p>
-            <input type="text" id="ingredientSearch" onChange={(e) => {setSearched(e)}} placeholder="Search for ingredients.." />
-            <Button onClick={filterIngredients}>search</Button>
-            <ul id="myUL ">
-                {ingrs}
-            </ul>
-            
             <p>Can't find what you're looking for? Try looking at the Spoonacular database.</p>
             <input type="text" id="addIngredient" onChange={(e) => setNewIngrSearch(e)} placeholder="New Ingredient" />
             <Button onClick={getSearchResults}>search</Button>
             <ul id="searchUL">
                 {newIngrs}
             </ul>
-
-            <SearchBar ingredients = {new_ingredients} />
-
-            <Button onClick={ch_get_test}>Testing</Button>
         </div>
     )
 }
