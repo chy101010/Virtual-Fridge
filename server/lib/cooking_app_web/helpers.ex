@@ -41,7 +41,8 @@ defmodule CookingAppWeb.Helpers do
         if arr == [] do
             String.slice(accum, 0..-2)
         else 
-            arrToString((tl arr), accum <> "," <> (hd arr))
+            cleanHead = String.replace((hd arr), " ", "%20") 
+            arrToString((tl arr), cleanHead <> "," <> accum)
         end
     end
 

@@ -74,6 +74,15 @@ function ownedingredients(state = [], action) {
       return state;
   }
 }
+
+function recipes(state = [], action) {
+  switch (action.type) {
+    case 'recipes/set':
+      return action.data;
+    default:
+      return state;
+  }
+}
  
 function error(state = null, action) {
   switch (action.type) {
@@ -99,7 +108,7 @@ function success(state = null, action) {
  
 function root_reducer(state, action) {
     let reducer = combineReducers({
-        users, user_form, session, error, ingredients, ownedingredients, success
+        users, user_form, session, error, ingredients, ownedingredients, success, recipes
     });
     return reducer(state, action);
 }
