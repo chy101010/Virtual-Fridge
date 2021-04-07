@@ -8,10 +8,12 @@ let channel;
 export function ch_join() {
     if(token) {
         socket.connect();
-        channel = socket.channel("room:" + get_username(), {})
-    
+        channel = socket.channel("main", {})
         channel.join()
         .receive("ok", resp => {
+            channel.on("view", payload => {
+                console.log(payload);
+            })
             console.log("joined");
         })
         .receive("error", resp => {
@@ -23,4 +25,14 @@ export function ch_join() {
 export function socket_disconnect() {
     channel.leave();
     socket.disconnect();
+}
+
+export function ch_get_test() {
+    channel.push("get", "")
+    .receive("ok", resp => {
+        console.log(resp)
+    })
+    .receive("error", resp => {
+        console.log(resp);
+    })
 }

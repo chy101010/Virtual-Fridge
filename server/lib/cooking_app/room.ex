@@ -1,6 +1,5 @@
 defmodule CookingApp.Room do 
     use GenServer
-
     alias CookingApp.RoomState
 
     @impl true
@@ -24,20 +23,24 @@ defmodule CookingApp.Room do
         GenServer.cast(:room, {:add_recipe, data})
     end 
 
-    @impl
+    @impl true
     def handle_call(:view, _from, state) do
-        IO.inspect("called Handle_call Room View")
+        {:reply, RoomState.view(state), state}
+    end 
+
+    # Broadcast
+    @impl true
+    def handle_cast({:add_recipe, data}, state) do
+        state = RoomState.add_recipe(state, data)
+        CookingAppWeb.Endpoint.broadcast!("main", "view", %{new: data, data: RoomState.view(state)})
         {:noreply, state}
     end 
 
-    @impl 
-    def handle_cast({:add_recipe, data}, _from, state) do
-        IO.inspect("called Handle_cast add receipe")
-        {:noreply, RoomState.add_recipe(state, data)}
-    end 
-
-    def handle_cast({:add_ingredient, data}, _from, state) do
-        IO.inspect("called Handle_cast add receipe")
-        {:noreply, RoomState.add_ingredient(state, data)}
+    # Broadcast 
+    @impl true
+    def handle_cast({:add_ingredient, data}, state) do
+        state = RoomState.add_ingredient(state, data)
+        CookingAppWeb.Endpoint.broadcast!("main", "view", %{new: data, data: RoomState.view(state)})
+        {:noreply, state}
     end 
 end 
