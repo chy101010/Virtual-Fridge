@@ -75,6 +75,7 @@ export default function MyNav() {
                     <Link to="/ingredients">Your Ingredients</Link>
                     <Link to="/ingredients/add">Add Ingredients</Link>
                     <Link to="/mock">Mock</Link>
+                    <Link to="/recipes">Recipes</Link>
                 </Nav>
                 <Nav>
                     <Navbar.Text> Signed in as: {user} </Navbar.Text>

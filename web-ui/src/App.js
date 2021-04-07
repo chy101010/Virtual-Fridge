@@ -9,6 +9,7 @@ import Register from './Register/register';
 import Login from './Login/login';
 import Home from './Home/home';
 
+import ShowRecipes from './Recipes/my_recipes';
 import OwnIngredients from './Ingredients/own_ingredients';
 import AddIngredients from './Ingredients/add_ingredients';
 import Mock from './Ingredients/Mock'
@@ -44,6 +45,9 @@ function App() {
 				</Route>
 				<Route path="/mock" exact>
 					<Mock />
+				</Route>
+				<Route path="/recipes" exact>
+					<ShowRecipes />
 				</Route>
 			</Switch>
 		</Container>
