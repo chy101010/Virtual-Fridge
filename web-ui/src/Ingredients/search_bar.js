@@ -1,6 +1,6 @@
 // Cite: https://react-select.com/advanced#experimental
 /** @jsx jsx */
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { jsx } from '@emotion/react';
 import { Button } from 'react-bootstrap';
 
@@ -9,7 +9,8 @@ import { defaultTheme } from 'react-select';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 
-import { create_owned_ingredient } from '../api';
+import { create_owned_ingredient, delete_owned_ingredient } from '../api';
+import store from '../store'
 
 const { colors } = defaultTheme;
 
@@ -30,7 +31,7 @@ const DropdownIndicator = () => (
     </div>
 );
 
-export default function SearchBar({ ingredients }) {
+export default function SearchBar({ ingredients, flag, callback }) {
     const [state, setState] = useState({
         isOpen: false,
         value: undefined,
@@ -40,6 +41,25 @@ export default function SearchBar({ ingredients }) {
         setState(state => ({ isOpen: !state.isOpen }));
     };
 
+    async function  createOwnedIngredient(value) {
+        let result = await create_owned_ingredient(value);
+        if(result.data) {
+            console.log(result.data);
+            callback(!flag)
+            store.dispatch({type: "ownedingredients/add", data: {
+                id: result.data.id,
+                ingredient_id: result.data.ingredient_id,
+                ingredient_name: result.data.ingredient.ingredient_name,
+                user_id: result.data.user_id
+            }})
+            store.dispatch({type: "success/set", data: "Successfully Added!"})
+        }
+        else
+        {
+            store.dispatch({ type: "error/set", data: "Unsuccessful Added!"})
+        }
+    }
+
     const onSelectChange = value => {
         toggleOpen();
         confirmAlert({
@@ -48,8 +68,8 @@ export default function SearchBar({ ingredients }) {
             buttons: [
                 {
                     label: 'Yes',
-                    onClick: () => {
-                        create_owned_ingredient({ ingredient_name: value.label })
+                    onClick: (e) => {
+                        createOwnedIngredient({ ingredient_name: value.label })
                         setState({ value: undefined })
                     }
                 },
@@ -57,7 +77,8 @@ export default function SearchBar({ ingredients }) {
                     label: 'No',
                     onClick: () => setState({ value: undefined })
                 }
-            ]
+            ],
+            // afterClose: () => {callback(0)}
         });
     };
 

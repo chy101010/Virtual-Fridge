@@ -59,8 +59,6 @@ defmodule CookingApp.OwnedIngredients do
 
   """
   def create_owned_ingredient(attrs \\ %{}) do
-    IO.inspect("create owned ingredient")
-    IO.inspect(attrs)
     %OwnedIngredient{}
     |> OwnedIngredient.changeset(attrs)
     |> Repo.insert()
@@ -99,6 +97,10 @@ defmodule CookingApp.OwnedIngredients do
   def delete_owned_ingredient(%OwnedIngredient{} = owned_ingredient) do
     Repo.delete(owned_ingredient)
   end
+
+  def load_ingredient(%OwnedIngredient{} = owned_ingredient) do
+    Repo.preload(owned_ingredient, [:ingredient])
+  end 
 
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking owned_ingredient changes.

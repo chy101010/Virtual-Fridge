@@ -70,6 +70,9 @@ function ownedingredients(state = [], action) {
   switch (action.type) {
     case 'ownedingredients/set':
       return action.data;
+    case 'ownedingredients/add':
+      state.push(action.data)
+      return state
     default:
       return state;
   }

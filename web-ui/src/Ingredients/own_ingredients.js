@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import FastfoodIcon from '@material-ui/icons/Fastfood';
 import Typography from '@material-ui/core/Typography';
@@ -20,8 +20,10 @@ export default function OwnIngredients() {
   const classes = useStyles();
   const session = useSelector(state => state.session);
   const owned_ingredients = useSelector(state => state.ownedingredients);
+  const [state, setState] = useState(false);
   const ingredients = useSelector(state => state.ingredients);
 
+  console.log(owned_ingredients)
 
   let display_ingredients = []
   for (let ii = 0; ii < ingredients.length; ii++) {
@@ -32,7 +34,7 @@ export default function OwnIngredients() {
       }
     )
   }
-
+  
   useEffect(() => {
     if (session) {
       fetch_ingredients();
@@ -47,7 +49,7 @@ export default function OwnIngredients() {
         <p>Select An Ingredient From Our Database And Add It To Your Virtual Fridge!</p>
         <div className="Container">
           <div className="row justify-content-center">
-            <SearchBar ingredients={display_ingredients} />
+            <SearchBar ingredients={display_ingredients} flag={state} callback={setState} />
           </div>
           <Typography variant="h4" className={classes.title} style={{ color: blue[100] }}>  Virtual Fridge </Typography>
           <div className="row justify-content-center">

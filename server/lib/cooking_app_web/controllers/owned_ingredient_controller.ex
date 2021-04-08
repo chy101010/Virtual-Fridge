@@ -51,7 +51,7 @@ defmodule CookingAppWeb.OwnedIngredientController do
         {:error, %Ecto.Changeset{} = changeset} ->
           conn 
           |> put_resp_header("content-type", "application/json; charset=UTF-8")
-          |> send_resp(:not_acceptable, Jason.encode!(%{error: "Given Ingredient Not Found."}))
+          |> send_resp(:not_acceptable, Jason.encode!(%{error: "Given Ingredient Not Invalid."}))
       end 
     else
       conn
