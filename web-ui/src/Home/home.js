@@ -28,7 +28,7 @@ export default function Home() {
     let recipesFeed = [];
 	console.log(state);
 
-    if (ingredients) {
+    if (ingredients && ingredients.length !== 0) {
       ingredientsFeed = ingredients.map((item) => (
         <tr>
           <td className="feed-cell"><span className="userName">{item.username}</span> added <span className="ingredientName">{item.ingredient_name}</span> to the ingredients list!</td>
@@ -38,11 +38,12 @@ export default function Home() {
       ingredientsFeed = ingredientsFeed.reverse();
     } else {
       ingredientsFeed = <tr>
-	<td>No Recent Ingredient Activity</td>
+	<td className="text-center">No Recent Ingredient Activity</td>
       </tr>;
     }
 
-    if (recipes) {
+    if (recipes && recipes.length !== 0) {
+	console.log("recipes", recipes)
       recipesFeed = recipes.map((item) => (
         <tr>
           <td className="feed-cell"><span className="userName">
@@ -56,7 +57,7 @@ export default function Home() {
       recipesFeed = recipesFeed.reverse();
     } else {
 	recipesFeed = <tr>
-	<td>No Recent Recipe Activity</td>
+	<td className="text-center">No Recent Recipe Activity</td>
       </tr>;
     }
 
@@ -66,9 +67,8 @@ export default function Home() {
 	      <div ref={topRef}></div>
               <h2>Can you smell what the rock is cooking?</h2>
 		
-		<table className="feed-container">
-                <tr>
-		  <th className="feed-table">
+		<div className="feed-container">
+		  <div className="feed-table">
        	          <table className="table">
 		    <thead>
 		      <tr>
@@ -76,14 +76,12 @@ export default function Home() {
 		      </tr>
 		    </thead>
 		    <tbody>
-		      <th>
-		        { ingredientsFeed }
-		      </th>
+		          { ingredientsFeed }
 		    </tbody>
 	          </table>
-                  </th>
+                  </div>
 
-		  <th className="feed-table">
+		  <div className="feed-table">
                   <table className="table">
 		      <thead>
 		        <tr>
@@ -91,14 +89,12 @@ export default function Home() {
 		        </tr>
 		      </thead>
 		      <tbody>
-		        <th className="align-top">
-		          { recipesFeed }
-		        </th>
-		    </tbody>
+		            { recipesFeed }
+		      </tbody>
 	          </table>
-		  </th>
-		</tr>
-		</table>
+		  </div>
+
+		</div>
 
 	    </div>
         );

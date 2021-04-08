@@ -20,6 +20,8 @@ body {
 
 .feed-table {
   vertical-align: top;
+  width: 50%;
+  float: left;
 }
 
 .feed-title {
