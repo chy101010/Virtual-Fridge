@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 
 export default function ShowRecipes() {
     const recipeList = useSelector(state => state.recipes);
+    const session = useSelector(state => state.session);
 
     let recipes = [];
     for (let ii = 0; ii < recipeList.length; ii++) {
@@ -44,12 +45,18 @@ export default function ShowRecipes() {
         }
     }, [])
 
-    return (
-        <div className="mt-3">
-            <h2>What You Can Be Cooking!</h2>
-            <div className="mt-4 d-flex flex-wrap justify-content-center">
-                {recipes}
+    if (session) {
+        return (
+            <div className="mt-3">
+                <h2>What You Can Be Cooking!</h2>
+                <div className="mt-4 d-flex flex-wrap justify-content-center">
+                    {recipes}
+                </div>
             </div>
-        </div>
-    )
+        )
+    } else{
+        return (
+          <h3>Login to see this page!</h3>
+        )
+    }
 }

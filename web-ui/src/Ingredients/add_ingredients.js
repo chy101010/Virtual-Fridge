@@ -3,6 +3,7 @@ import { search_ingredient_by_name, get_ingredient_by_id } from '../api'
 import { Button } from 'react-bootstrap';
 import { create_ingredient } from '../api';
 import { confirmAlert } from 'react-confirm-alert';
+import { useSelector } from 'react-redux';
 
 function getIngredientInfo(id) {
     let data = {
@@ -49,6 +50,7 @@ export function titleCase(str) {
 export default function AddIngredients() {
     const [newIngredientSearch, setNewIngredientSearch] = useState("");
     const [newIngredientQuery, setNewIngredientQuery] = useState([]);
+    const session = useSelector(state => state.session);
 
     let newIngrs = newIngredientQuery.map((i) => (
         <li key={i.id}> 
@@ -88,16 +90,22 @@ export default function AddIngredients() {
         })
     }
 
-    return (
-        <div >
-            <h3>Add Ingredients</h3>
-            
-            <p>Can't find what you're looking for? Try looking at the Spoonacular database.</p>
-            <input type="text" id="addIngredient" onChange={(e) => setNewIngrSearch(e)} placeholder="New Ingredient" />
-            <Button onClick={getSearchResults}>search</Button>
-            <ul id="searchUL">
-                {newIngrs}
-            </ul>
-        </div>
-    )
+    if (session) {
+        return (
+            <div >
+                <h3>Add Ingredients</h3>
+                
+                <p>Can't find what you're looking for? Try looking at the Spoonacular database.</p>
+                <input type="text" id="addIngredient" onChange={(e) => setNewIngrSearch(e)} placeholder="New Ingredient" />
+                <Button onClick={getSearchResults}>search</Button>
+                <ul id="searchUL">
+                    {newIngrs}
+                </ul>
+            </div>
+        )
+    } else{
+        return (
+          <h3>Login to see this page!</h3>
+        )
+    }
 }

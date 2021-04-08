@@ -33,7 +33,7 @@ defmodule CookingAppWeb.OwnedIngredientController do
   # Checks whether the ingredient's name is valid and the current user doesn't have a duplicate  
   def create(conn, %{"owned_ingredient" => owned_ingredient_params}) do
     user_id = conn.assigns[:user].id
-    ingredient_id = Ingredients.get_ingredient_id_by_name(owned_ingredient_params["ingredient_name"]);
+    ingredient_id = Ingredients.get_ingredient_by_name(owned_ingredient_params["ingredient_name"]);
     if(ingredient_id) do
       params = %{"user_id": user_id, "ingredient_id": ingredient_id.id}
       res = OwnedIngredients.create_owned_ingredient(params)
