@@ -15,9 +15,10 @@ import green from '@material-ui/core/colors/green';
 import { titleCase } from './add_ingredients';
 import { confirmAlert } from 'react-confirm-alert';
 import { create_ingredient } from '../api';
+import {useSpring, animated} from 'react-spring';
 
 
-import { delete_owned_ingredient, get_ingredient_by_id } from '../api';
+import { get_ingredient_by_id } from '../api';
 
 export const useStyles = makeStyles((theme) => ({
     root: {
@@ -75,9 +76,25 @@ function addNewIngredient(ingredient) {
 export default function InteractiveListIng({ ingredients }) {
     console.log(ingredients);
     const classes = useStyles();
+
+    const moveUp = useSpring ({
+        config: {duration: 700},
+        position: 'relative',
+        from: {
+            opacity: 0,
+            top: '-275%'
+        },
+        to: {
+            opacity: 1,
+            top: '0px'
+        },
+        delay: 200
+    });
+
     let ingredients_row = [];
     for (let ii = 0; ii < ingredients.length; ii++) {
         ingredients_row.push(
+            <animated.div style={moveUp}>
             <ListItem key={ingredients[ii].id}>
                 <ListItemAvatar>
                     <Avatar>
@@ -96,6 +113,7 @@ export default function InteractiveListIng({ ingredients }) {
                     </IconButton>
                 </ListItemSecondaryAction>
             </ListItem>
+            </animated.div>
         )
     }
 

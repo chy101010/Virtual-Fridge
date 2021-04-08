@@ -41,11 +41,12 @@ export default function AddIngredients() {
     });
 
     const moveIn = useSpring ({
-        config: {duration: 1500},
+        config: {duration: 1000},
         position: 'relative',
-        opacity: clicked ? 1: 0,
-        delay: 400
-    })
+        top: clicked? '0px' : '300%',
+        opacity: clicked? 1:0, 
+        delay: 600
+    });
 
     //get search results from Spoonacular database and set state
     function getSearchResults() {
@@ -75,7 +76,7 @@ export default function AddIngredients() {
         return (
             <div >
                 <h3>Add Ingredients</h3>
-                <div style={{top: "50%", left: "15%", position: "fixed", width: "80%"}}>
+                <div style={{top: "50%", left: "15%", position: "fixed", width: "70%"}}>
                     <animated.div id="searchBarAddIng" style={moveUp}>
                         <p>Can't find what you're looking for? Try looking at the Spoonacular database.</p>
                         <SearchBar value={newIngredientSearch} onChange={(e) => setNewIngredientSearch(e)} onRequestSearch={handleSearch} placeholder="New Ingredient" onCancelSearch={(e) => setNewIngredientQuery([])}/>
