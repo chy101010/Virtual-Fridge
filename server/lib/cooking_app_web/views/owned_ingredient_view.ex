@@ -1,7 +1,6 @@
 defmodule CookingAppWeb.OwnedIngredientView do
   use CookingAppWeb, :view
   alias CookingAppWeb.OwnedIngredientView
-  alias CookingApp.OwnedIngredients
 
   def render("index.json", %{ownedingredients: ownedingredients}) do
     %{data: render_many(ownedingredients, OwnedIngredientView, "owned_ingredient.json")}
@@ -12,10 +11,8 @@ defmodule CookingAppWeb.OwnedIngredientView do
   end
 
   def render("owned_ingredient_single.json", %{owned_ingredient: owned_ingredient}) do
-    ingredient = OwnedIngredients.load_ingredient(owned_ingredient);
     %{id: owned_ingredient.id,
       ingredient_id: owned_ingredient.ingredient_id,
-      ingredient: render_one(ingredient.ingredient, CookingAppWeb.IngredientView, "ingredient.json"),
       user_id: owned_ingredient.user_id}
   end
 

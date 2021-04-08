@@ -23,8 +23,6 @@ export default function OwnIngredients() {
   const [state, setState] = useState(false);
   const ingredients = useSelector(state => state.ingredients);
 
-  console.log(owned_ingredients)
-
   let display_ingredients = []
   for (let ii = 0; ii < ingredients.length; ii++) {
     display_ingredients.push(
@@ -37,10 +35,10 @@ export default function OwnIngredients() {
   
   useEffect(() => {
     if (session) {
-      fetch_ingredients();
       fetch_owned_ingredients();
+      fetch_ingredients();
     }
-  }, [])
+  }, [state])
 
   if (session) {
     return (
@@ -53,7 +51,7 @@ export default function OwnIngredients() {
           </div>
           <Typography variant="h4" className={classes.title} style={{ color: blue[100] }}>  Virtual Fridge </Typography>
           <div className="row justify-content-center">
-            <InteractiveList ingredients={owned_ingredients} />
+            <InteractiveList ingredients={owned_ingredients} flag={state} callback={setState} />
           </div>
         </div>
       </div>
