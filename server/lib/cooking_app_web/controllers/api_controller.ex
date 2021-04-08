@@ -3,6 +3,7 @@ defmodule CookingAppWeb.ApiController do
 
     alias CookingAppWeb.Helpers
     alias CookingApp.OwnedIngredients
+    alias CookingApp.Ingredients
     alias CookingAppWeb.Plugs
     
     # Socket
@@ -73,10 +74,31 @@ defmodule CookingAppWeb.ApiController do
                 |> send_resp(:not_acceptable, Jason.encode!(%{error: "API Error"}))
         end
     end
+
+    def ingredientInfoByIngId(conn, %{"ingredient" => ingredient_params}) do
+        ingredient_id = ingredient_params["id"]
+        spoonacular_id = Ingredients.get_spoonacular_id_by_ingredient_id(ingredient_id)
+        if(hd spoonacular_id) do
+            case Helpers.getIngredientById(hd spoonacular_id) do
+            {:ok, result} ->
+                conn 
+                |> put_resp_header("content-type", "application/jsonl charset=UTF-8")
+                |> send_resp(:ok, Jason.encode!(result))
+            {:error, _} ->
+                conn 
+                |> put_resp_header("content-type", "application/json; charset=UTF-8")
+                |> send_resp(:not_acceptable, Jason.encode!(%{error: "API Error"}))
+            end
+        else
+            conn
+            |> put_resp_header("content-type", "application/json; charset=UTF-8")
+            |> send_resp(:not_acceptable, Jason.encode!(%{error: "Error with querying"}))
+        end
+    end
     
     def ingredientInfo(conn, %{"ingredient" => ingredient_params}) do
-        ingredient_id = ingredient_params["id"]
-        case Helpers.getIngredientById(ingredient_id) do
+        spoonacular_id = ingredient_params["id"]
+        case Helpers.getIngredientById(spoonacular_id) do
             {:ok, result} ->
                 conn 
                 |> put_resp_header("content-type", "application/jsonl charset=UTF-8")

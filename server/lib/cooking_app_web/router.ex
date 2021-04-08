@@ -30,6 +30,7 @@ defmodule CookingAppWeb.Router do
     get "/recipes-by-ingredients", ApiController, :getRecipeByIngredients
     post "/recipe-by-id", ApiController, :recipeInfo
     post "/ingredient-by-id", ApiController, :ingredientInfo
+    post "/ingredient-by-ing-id", ApiController, :ingredientInfoByIngId
   end
 
   # Other scopes may use custom stacks.

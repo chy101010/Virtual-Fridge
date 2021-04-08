@@ -58,5 +58,4 @@ defmodule CookingAppWeb.IngredientController do
       |> send_resp(:not_acceptable, Jason.encode!(%{error: "Given Ingredient Not Found."}))
     end 
   end
-
 end

@@ -19,20 +19,24 @@ defmodule CookingApp.RoomState do
     # TODO: Polish 
     # recipe = %{username: username, recipe: recipe} 
     def add_recipe(state, recipe) do
-        if(state.recipe_index == 100) do
-            state1 = %{state | recipe_index: 0}
-            add_recipe_helper(state1, recipe)
+        if(!Enum.any?(state.recipes, fn r -> r === recipe end)) do 
+            if(state.recipe_index == 100) do
+                state1 = %{state | recipe_index: 0}
+                add_recipe_helper(state1, recipe)
+            else 
+                state1 = add_recipe_helper(state, recipe)
+                %{state1 | recipe_index: state1.recipe_index + 1}
+            end 
         else 
-            state1 = add_recipe_helper(state, recipe)
-            %{state1 | recipe_index: state1.recipe_index + 1}
+            state
         end 
     end 
 
     defp add_recipe_helper(state, recipe) do
-        if(state.recipe_index < length(state.receipes)) do
-            %{state | receipes: List.replace_at(state.receipes, state.recipe_index, recipe)}
+        if(state.recipe_index < length(state.recipes)) do
+            %{state | recipes: List.replace_at(state.recipes, state.recipe_index, recipe)}
         else
-            %{state | receipes: state.recipes ++ [recipe]}
+            %{state | recipes: state.recipes ++ [recipe]}
         end
     end
 

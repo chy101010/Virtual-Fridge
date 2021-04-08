@@ -133,6 +133,10 @@ export function get_ingredient_by_id(ingredient) {
   return api_post("/ingredient-by-id", {ingredient})
 }
 
+export function get_ingredient_by_ing_id(ingredient) {
+  return api_post("/ingredient-by-ing-id", {ingredient})
+}
+
 export function delete_owned_ingredient(owned_ingredient) {
   return api_delete(`/owned-ingredients/${owned_ingredient.id}`, owned_ingredient)
 }

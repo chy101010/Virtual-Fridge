@@ -6,7 +6,7 @@ defmodule CookingAppWeb.RoomChannel do
     @impl true
     def join("main", payload, socket) do
         if authorized?(payload) do
-            {:ok, socket}
+            {:ok, Room.get_view(), socket}
         else 
             {:error, %{reason: "unauthorized"}}
         end

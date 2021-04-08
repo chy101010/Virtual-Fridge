@@ -105,10 +105,19 @@ function success(state = null, action) {
       return state;
   }
 }
+
+function lives(state = [], action) {
+  switch(action.type) {
+    case "lives/set":
+      return action.data;
+    default:
+      return state;
+  }
+}
  
 function root_reducer(state, action) {
     let reducer = combineReducers({
-        users, user_form, session, error, ingredients, ownedingredients, success, recipes
+        users, user_form, session, error, ingredients, ownedingredients, success, recipes, lives
     });
     return reducer(state, action);
 }

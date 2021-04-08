@@ -14,9 +14,11 @@ import DeleteForeverRoundedIcon from '@material-ui/icons/DeleteForeverRounded';
 import ContactSupportRoundedIcon from '@material-ui/icons/ContactSupportRounded';
 import green from '@material-ui/core/colors/green';
 import blue from '@material-ui/core/colors/blue';
+import { titleCase } from './add_ingredients';
+import { confirmAlert } from 'react-confirm-alert';
 
 
-import { delete_owned_ingredient } from '../api';
+import { delete_owned_ingredient, get_ingredient_by_ing_id } from '../api';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -38,8 +40,35 @@ function removeOwnedIngredient(id) {
     delete_owned_ingredient(data);
 }
 
-function fetchIngredientInfo(id) {
-    
+function getIngredientInfoByIngId(id) {
+    let data = {
+        "id": id
+    }
+    get_ingredient_by_ing_id(data).then((result) => {
+        console.log(result);
+        confirmAlert({
+            title: `${titleCase(result.name)}`,
+            childrenElement: () => 
+            
+            <div>
+                <p>Cost: {result.cost.value} {result.cost.unit}</p>
+                <p>Aisle Location: {result.aisle}</p>
+                <p>Caloric Breakdown:</p>
+                <ul>
+                    <li>Protein %: {result.nutrition.caloricBreakdown.percentProtein}</li>
+                    <li>Fat %: {result.nutrition.caloricBreakdown.percentFat}</li>
+                    <li>Carbs %: {result.nutrition.caloricBreakdown.percentCarbs}</li>
+                </ul>
+            </div>,
+            buttons: [
+                {
+                    label: 'Close.'
+                }
+            ],
+            closeOnEscape: true,
+            closeOnClickOutside: true,
+        });
+    });
 }
 
 export default function InteractiveList({ ingredients }) {
@@ -60,7 +89,7 @@ export default function InteractiveList({ ingredients }) {
                     <IconButton onClick={() => removeOwnedIngredient(ingredients[ii].id)} edge="end" aria-label="delete">
                         <DeleteForeverRoundedIcon />
                     </IconButton >
-                    <IconButton edge="end" aria-label="delete" onClick={() => fetchIngredientInfo(ingredients[ii].id)}>
+                    <IconButton edge="end" aria-label="delete" onClick={() => getIngredientInfoByIngId(ingredients[ii].id)}>
                         <ContactSupportRoundedIcon />
                     </IconButton>
                 </ListItemSecondaryAction>

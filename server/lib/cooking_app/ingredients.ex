@@ -7,6 +7,8 @@ defmodule CookingApp.Ingredients do
   alias CookingApp.Repo
 
   alias CookingApp.Ingredients.Ingredient
+  alias CookingApp.OwnedIngredients.OwnedIngredient
+  alias CookingApp.OwnedIngredients
 
   @doc """
   Returns the list of ingredients.
@@ -41,9 +43,16 @@ defmodule CookingApp.Ingredients do
     Repo.get_by(Ingredient, ingredient_name: ingredient_name)
   end 
 
-  def get_ingredient_id_by_name(ingredient_name) do
-    ing = get_ingredient_by_name(ingredient_name)
-    ing
+  def get_spoonacular_id_by_ingredient_id(ingredient_id) do
+    owned_ingredient = OwnedIngredients.get_owned_ingredient!(ingredient_id)
+    ingredient_id = owned_ingredient.ingredient_id
+    query = from(
+      o in OwnedIngredient,
+      join: i in Ingredient,
+      on: o.ingredient_id == i.id,
+      where: o.ingredient_id == ^ingredient_id,
+      select: i.spoonacular_id)
+    Repo.all(query)
   end
 
   @doc """
