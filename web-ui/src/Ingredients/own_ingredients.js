@@ -42,14 +42,15 @@ export default function OwnIngredients() {
 
   if (session) {
     return (
-      <div className="mt-3">
+      <div className="mt-3 myDiv">
+        <div className="bg"> </div>
         <h2><FastfoodIcon />Ingredients</h2>
-        <p>Select An Ingredient From Our Database And Add It To Your Virtual Fridge!</p>
+        <p style={{color: "#3333ff"}}>Select An Ingredient From Our Database And Add It To Your Virtual Fridge!</p>
         <div className="Container">
           <div className="row justify-content-center">
             <SearchBar ingredients={display_ingredients} flag={state} callback={setState} />
           </div>
-          <Typography variant="h4" className={classes.title} style={{ color: blue[100] }}>  Virtual Fridge </Typography>
+          <Typography variant="h4" className={classes.title} style={{ color: blue[300] }}>  Virtual Fridge </Typography>
           <div className="row justify-content-center">
             <InteractiveList ingredients={owned_ingredients} flag={state} callback={setState} />
           </div>

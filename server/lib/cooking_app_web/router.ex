@@ -23,7 +23,7 @@ defmodule CookingAppWeb.Router do
     pipe_through :api
 
     resources "/session", SessionController, only: [:create]
-    resources "/users", UserController, except: [:new, :edit]
+    resources "/users", UserController, except: [:new, :edit, :update, :delete, :index]
     resources "/ingredients", IngredientController, except: [:delete, :update]
     resources "/owned-ingredients", OwnedIngredientController, except: [:update]
     post "/ingredients-search", ApiController, :searchResult

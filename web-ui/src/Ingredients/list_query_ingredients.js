@@ -99,7 +99,7 @@ export default function InteractiveListIng({ ingredients }) {
     let ingredients_row = [];
     for (let ii = 0; ii < ingredients.length; ii++) {
         ingredients_row.push(
-            <animated.div style={moveUp}>
+            <div>
             <ListItem key={ingredients[ii].id}>
                 <ListItemAvatar>
                     <Avatar>
@@ -118,7 +118,7 @@ export default function InteractiveListIng({ ingredients }) {
                     </IconButton>
                 </ListItemSecondaryAction>
             </ListItem>
-            </animated.div>
+            </div>
         )
     }
 

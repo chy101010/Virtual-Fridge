@@ -10,6 +10,7 @@ import store from '../store'
 export default function ShowRecipes() {
     const recipeList = useSelector(state => state.recipes);
     const session = useSelector(state => state.session);
+    let header;
 
     let recipes = [];
     for (let ii = 0; ii < recipeList.length; ii++) {
@@ -46,10 +47,15 @@ export default function ShowRecipes() {
         }
     }, [])
 
+    if(recipeList.error) {
+        header = <h3 style={{color: "#3399ff"}}>Try Adding Ingredients Into Your Virtual Fridge!</h3>
+    }
+
     if (session) {
         return (
-            <div className="mt-3">
-                <h2>What You Can Be Cooking!</h2>
+            <div className="mt-3 myDiv">
+                <div className="bg"> </div>
+                {header}
                 <div className="mt-4 d-flex flex-wrap justify-content-center">
                     {recipes}
                 </div>

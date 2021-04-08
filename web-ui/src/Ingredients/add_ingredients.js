@@ -34,19 +34,19 @@ export default function AddIngredients() {
     const session = useSelector(state => state.session);
 
     const moveUp = useSpring({
-        config: { duration: 700 },
+        config: { duration: 2000 },
         opacity: clicked ? 0 : 1,
-        position: 'relative',
-        top: clicked ? '-275%' : '0px',
+        position: 'fixed',
+        top: clicked ? '-50%' : '10%',
+        tension: 280,
+        friction: 60,
         //left: "15%",
         delay: 200,     
-        margin: "auto",
     });
-
     const moveIn = useSpring({
         config: { duration: 1000 },
         position: 'relative',
-        top: clicked ? '0px' : '-275%',
+        top: '15%',
         opacity: clicked ? 1 : 0,
         delay: 600
     });
@@ -77,7 +77,8 @@ export default function AddIngredients() {
 
     if (session) {
         return (
-            <div>
+            <div className="myDiv">
+                <div className="bg"> </div>
                 <div>
                     <animated.ul id="searchUL" style={moveIn}>
                         <InteractiveListIng ingredients={newIngredientQuery} />

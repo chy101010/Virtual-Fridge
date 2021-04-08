@@ -9,7 +9,7 @@ defmodule CookingAppWeb.ApiController do
     # Socket
     alias CookingApp.Room
 
-    plug Plugs.RequireAuth when action in [:searchResult, :getRecipeByIngredients]
+    plug Plugs.RequireAuth when action in [:searchResult, :getRecipeByIngredients, :recipeInfo, :ingredientInfoByIngId, :ingredientInfo]
     action_fallback CookingAppWeb.FallbackController
 
 
