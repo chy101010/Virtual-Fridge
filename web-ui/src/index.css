@@ -3,3 +3,17 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+/* Cited: https://stock.adobe.com/images/asian-food-background-with-various-ingredients-on-rustic-stone-background-top-view-vietnam-or-thai-cuisine/297677001 */
+.bg1 {
+    background-image: url("./Photos/background1.jpg");
+    background-position: center;
+    background-size: contain;
+}
+
+#searchBarAddIng {
+  top: 50%;
+  left: 15%;
+  position: fixed;
+  width: 70%;
+}

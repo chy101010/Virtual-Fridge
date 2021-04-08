@@ -4,6 +4,8 @@ import { fetch_recipes, get_recipe_by_id } from "../api";
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 
+// Store
+import store from '../store'
 
 export default function ShowRecipes() {
     const recipeList = useSelector(state => state.recipes);
@@ -33,14 +35,13 @@ export default function ShowRecipes() {
         let data = {
             "id": id
         }
-        console.log(id);
         get_recipe_by_id(data).then((result) => {
             window.open(result.sourceUrl, "_blank");
         })
     }
 
     useEffect(() => {
-        if (recipeList.length === 0) {
+        if (recipeList.length === 0 && session) {
             fetch_recipes();
         }
     }, [])
@@ -54,9 +55,12 @@ export default function ShowRecipes() {
                 </div>
             </div>
         )
-    } else{
-        return (
-          <h3>Login to see this page!</h3>
-        )
+    } else {
+        let action = {
+            type: "error/set",
+            data: "Required Login! Go to Home!"
+        }
+        store.dispatch(action);
+        return <div> </div>
     }
 }

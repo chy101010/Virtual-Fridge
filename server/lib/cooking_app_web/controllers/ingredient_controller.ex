@@ -21,12 +21,16 @@ defmodule CookingAppWeb.IngredientController do
   
   # Creates ingredient
   # ingredient_params = {"ingredient_name", name}
-  
   def create(conn, %{"ingredient" => ingredient_params}) do
+    #get ingredient name
     ingr = ingredient_params["ingredient_name"]
-
+    #get ingredient from our local database
     db_ingredient = Ingredients.get_ingredient_by_name(ingr)
+
+    #if ingredient doesn't exist in ours, try creating ingredient
     if(!db_ingredient) do
+
+      #create the ingredient
       case Ingredients.create_ingredient(ingredient_params) do
         {:ok, result} ->
           # Socket broadcast

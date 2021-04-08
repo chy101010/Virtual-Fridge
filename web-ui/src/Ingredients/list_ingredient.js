@@ -8,19 +8,17 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
 import KitchenTwoToneIcon from '@material-ui/icons/KitchenTwoTone';
 import DeleteForeverRoundedIcon from '@material-ui/icons/DeleteForeverRounded';
 import ContactSupportRoundedIcon from '@material-ui/icons/ContactSupportRounded';
 import green from '@material-ui/core/colors/green';
-import blue from '@material-ui/core/colors/blue';
 import { titleCase } from './add_ingredients';
 import { confirmAlert } from 'react-confirm-alert';
 
 
 import { delete_owned_ingredient, get_ingredient_by_ing_id } from '../api';
 
-const useStyles = makeStyles((theme) => ({
+export const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
         maxWidth: 752,
@@ -99,7 +97,7 @@ export default function InteractiveList({ ingredients }) {
 
     return (
         <div className={classes.root}>
-            <Typography variant="h4" className={classes.title} style={{ color: blue[300] }}>  Virtual Fridge </Typography>
+            {/* <Typography variant="h4" className={classes.title} style={{ color: blue[100] }}>  Virtual Fridge </Typography> */}
             <div className={classes.demo}>
                 <List>
                     {ingredients_row}

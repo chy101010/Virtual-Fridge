@@ -11,11 +11,15 @@ defmodule CookingAppWeb.ApiController do
 
     plug Plugs.RequireAuth when action in [:searchResult, :getRecipeByIngredients]
     action_fallback CookingAppWeb.FallbackController
-    
-    # Get ingredient search result from API
-    #ingredient_params = {"ingredient_name", name}
 
+
+    #This controller contains functions that call the Spoonacular API
+    
+    # Given a string query, return a list of ingredients from the Spoonacular db of ingredients.
+    #ingredient_params = {"ingredient_name", name}
     def searchResult(conn, %{"ingredient" => ingredient_params}) do
+
+        #call helper function with appropriate endpoint
         case Helpers.getIngredientByName(ingredient_params["ingredient_name"]) do
             {:ok, result} ->
                 conn
@@ -37,11 +41,19 @@ defmodule CookingAppWeb.ApiController do
         end 
     end  
 
+    #Returns a list of recipes using the list of owned ingredients
     def getRecipeByIngredients(conn, _) do
+        #get user id
         user_id = conn.assigns[:user].id
+        #get ingredients owned by user
         ingredients = OwnedIngredients.get_owned_ingredient_by_user_id(user_id)
+        #change list of ingredient objects into list of ingredient names
         ingredients = Helpers.ingredientListObjToName(ingredients)
+
+        #if not empty
         if(ingredients != []) do
+
+            #call helper function with appropriate endpoint
             case Helpers.getRecipeByIngredients(ingredients) do
                 {:ok, result} ->
                     recipes = Enum.map(result, fn recipe -> %{"username": conn.assigns[:user].username, "recipe_name": recipe.title} end)
@@ -61,8 +73,12 @@ defmodule CookingAppWeb.ApiController do
         end
     end
 
+    # Given a spoonacular recipe id, return information about the recipe.
+    # recipe_params = {"id": id}
     def recipeInfo(conn, %{"recipe" => recipe_params}) do
         recipe_id = recipe_params["id"]
+
+        #call helper function with appropriate endpoint
         case Helpers.getRecipeById(recipe_id) do
             {:ok, result} ->
                 conn 
@@ -75,10 +91,19 @@ defmodule CookingAppWeb.ApiController do
         end
     end
 
+    # Given an owned ingredient id, return information about the ingredient.
+    # ingredient_params = {"id": id}
     def ingredientInfoByIngId(conn, %{"ingredient" => ingredient_params}) do
+        #get owned ingredient id
         ingredient_id = ingredient_params["id"]
+
+        #get spoonacular id by joining owned ingredients and ingredients table
         spoonacular_id = Ingredients.get_spoonacular_id_by_ingredient_id(ingredient_id)
+
+        #if there is an element in list of spoonacular ids, 
         if(hd spoonacular_id) do
+
+            #call helper function with appropriate endpoint
             case Helpers.getIngredientById(hd spoonacular_id) do
             {:ok, result} ->
                 conn 
@@ -96,8 +121,12 @@ defmodule CookingAppWeb.ApiController do
         end
     end
     
+    # Given a spoonacular ingredient id, get ingredient information
+    # ingredient_params = {"id", id}
     def ingredientInfo(conn, %{"ingredient" => ingredient_params}) do
         spoonacular_id = ingredient_params["id"]
+
+        #call helper function with appropriate endpoint
         case Helpers.getIngredientById(spoonacular_id) do
             {:ok, result} ->
                 conn 

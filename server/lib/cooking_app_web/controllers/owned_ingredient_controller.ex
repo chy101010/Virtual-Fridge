@@ -32,8 +32,13 @@ defmodule CookingAppWeb.OwnedIngredientController do
   # owned_ingredient_params = {"ingredient_name": ingredient_name}
   # Checks whether the ingredient's name is valid and the current user doesn't have a duplicate  
   def create(conn, %{"owned_ingredient" => owned_ingredient_params}) do
+    #get user id
     user_id = conn.assigns[:user].id
+
+    #get ingredient from ingredients database
     ingredient_id = Ingredients.get_ingredient_by_name(owned_ingredient_params["ingredient_name"]);
+
+    #if ingredient is in the ingredients database, we can add it to owned ingredients
     if(ingredient_id) do
       params = %{"user_id": user_id, "ingredient_id": ingredient_id.id}
       res = OwnedIngredients.create_owned_ingredient(params)
@@ -80,12 +85,20 @@ defmodule CookingAppWeb.OwnedIngredientController do
  
   # Deletes the info of a owned ingredients 
   # Checks whether the id is valid 
-  # Checks whether the current user has that ingredient - plug?
+  # Checks whether the current user has that ingredient 
   def delete(conn, %{"id" => id}) do
+    #get user id
     user_id = conn.assigns[:user].id
+
+    #get owned ingredient
     owned_ingredient = OwnedIngredients.get_owned_ingredient!(String.to_integer(id))
+
+    #if owned ingredient exists
     if(owned_ingredient) do
+
+      #if the owner is the same as the logged in user
       if(owned_ingredient.user_id === user_id) do
+        #try deleting the owned ingredient
         case OwnedIngredients.delete_owned_ingredient(owned_ingredient) do
           {:ok, %OwnedIngredient{}} ->
             send_resp(conn, :no_content, "")

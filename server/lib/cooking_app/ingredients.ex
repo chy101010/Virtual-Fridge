@@ -43,6 +43,8 @@ defmodule CookingApp.Ingredients do
     Repo.get_by(Ingredient, ingredient_name: ingredient_name)
   end 
 
+  #function takes an owned ingredient id and gets the associated spoonacular id
+  #returns a list of spoonacular id's that match. (Should only be one)
   def get_spoonacular_id_by_ingredient_id(ingredient_id) do
     owned_ingredient = OwnedIngredients.get_owned_ingredient!(ingredient_id)
     ingredient_id = owned_ingredient.ingredient_id

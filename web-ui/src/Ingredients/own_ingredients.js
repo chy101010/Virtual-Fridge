@@ -1,52 +1,68 @@
 import React from "react";
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import FastfoodIcon from '@material-ui/icons/Fastfood';
+import Typography from '@material-ui/core/Typography';
+import blue from '@material-ui/core/colors/blue';
+import { useStyles } from "./list_ingredient"
+import '../index.css'
 
 // Components
 import SearchBar from './search_bar';
 import InteractiveList from './list_ingredient';
 
-import {fetch_owned_ingredients, fetch_ingredients} from '../api';
+// Store
+import store from '../store'
+
+import { fetch_owned_ingredients, fetch_ingredients } from '../api';
 
 export default function OwnIngredients() {
+  const classes = useStyles();
   const session = useSelector(state => state.session);
   const owned_ingredients = useSelector(state => state.ownedingredients);
   const ingredients = useSelector(state => state.ingredients);
-  
 
-  let display_ingredients = [] 
-  for(let ii = 0; ii < ingredients.length; ii++) {
+
+  let display_ingredients = []
+  for (let ii = 0; ii < ingredients.length; ii++) {
     display_ingredients.push(
       {
-          value: ingredients[ii].id,
-          label: ingredients[ii].ingredient_name
+        value: ingredients[ii].id,
+        label: ingredients[ii].ingredient_name
       }
     )
   }
 
   useEffect(() => {
-    fetch_ingredients();
-    fetch_owned_ingredients();
+    if (session) {
+      fetch_ingredients();
+      fetch_owned_ingredients();
+    }
   }, [])
 
-    if (session) {
-        return (
-            <div className="mt-3">
-              <h2>Here Are Your Ingredients</h2>
-                <div className="Container">
-                  <div className="row justify-content-center">
-                    <SearchBar ingredients={display_ingredients} />
-                  </div>
-                  <div className="row justify-content-center">
-                     <InteractiveList ingredients={owned_ingredients}/>
-                  </div>
-                </div>
-            </div>
-        )
+  if (session) {
+    return (
+      <div className="mt-3">
+        <h2><FastfoodIcon />Ingredients</h2>
+        <p>Select An Ingredient From Our Database And Add It To Your Virtual Fridge!</p>
+        <div className="Container">
+          <div className="row justify-content-center">
+            <SearchBar ingredients={display_ingredients} />
+          </div>
+          <Typography variant="h4" className={classes.title} style={{ color: blue[100] }}>  Virtual Fridge </Typography>
+          <div className="row justify-content-center">
+            <InteractiveList ingredients={owned_ingredients} />
+          </div>
+        </div>
+      </div>
+    )
+  }
+  else {
+    let action = {
+      type: "error/set",
+      data: "Required Login! Go to Home!"
     }
-    else {
-        return (
-          <h3>Login to see this page!</h3>
-        )
-    }
+    store.dispatch(action);
+    return <div> </div>
+  }
 }

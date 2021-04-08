@@ -38,6 +38,8 @@ defmodule CookingAppWeb.Helpers do
         
     end
     
+    #Given an ingredient's spoonacular id, return recipe information
+    #id = spoonacular id
     def getIngredientById(id) do
         api_key = getApiKey()
         url = "https://api.spoonacular.com/food/ingredients/#{id}/information?apiKey=#{api_key}&amount=1"
