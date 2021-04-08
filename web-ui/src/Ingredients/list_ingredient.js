@@ -14,7 +14,7 @@ import ContactSupportRoundedIcon from '@material-ui/icons/ContactSupportRounded'
 import green from '@material-ui/core/colors/green';
 import { titleCase } from './add_ingredients';
 import { confirmAlert } from 'react-confirm-alert';
-
+import store from '../store'
 
 import { delete_owned_ingredient, get_ingredient_by_ing_id } from '../api';
 
@@ -31,45 +31,53 @@ export const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function removeOwnedIngredient(id) {
-    let data = {
-        "id": id
-    }
-    delete_owned_ingredient(data);
-}
+export default function InteractiveList({ ingredients, flag, callback }) {
 
-function getIngredientInfoByIngId(id) {
-    let data = {
-        "id": id
-    }
-    get_ingredient_by_ing_id(data).then((result) => {
-        console.log(result);
-        confirmAlert({
-            title: `${titleCase(result.name)}`,
-            childrenElement: () => 
-            
-            <div>
-                <p>Cost: {result.cost.value} {result.cost.unit}</p>
-                <p>Aisle Location: {result.aisle}</p>
-                <p>Caloric Breakdown:</p>
-                <ul>
-                    <li>Protein %: {result.nutrition.caloricBreakdown.percentProtein}</li>
-                    <li>Fat %: {result.nutrition.caloricBreakdown.percentFat}</li>
-                    <li>Carbs %: {result.nutrition.caloricBreakdown.percentCarbs}</li>
-                </ul>
-            </div>,
-            buttons: [
-                {
-                    label: 'Close.'
-                }
-            ],
-            closeOnEscape: true,
-            closeOnClickOutside: true,
+    function getIngredientInfoByIngId(id) {
+        let data = {
+            "id": id
+        }
+        get_ingredient_by_ing_id(data).then((result) => {
+            console.log(result);
+            confirmAlert({
+                title: `${titleCase(result.name)}`,
+                childrenElement: () =>
+
+                    <div>
+                        <p>Cost: {result.cost.value} {result.cost.unit}</p>
+                        <p>Aisle Location: {result.aisle}</p>
+                        <p>Caloric Breakdown:</p>
+                        <ul>
+                            <li>Protein %: {result.nutrition.caloricBreakdown.percentProtein}</li>
+                            <li>Fat %: {result.nutrition.caloricBreakdown.percentFat}</li>
+                            <li>Carbs %: {result.nutrition.caloricBreakdown.percentCarbs}</li>
+                        </ul>
+                    </div>,
+                buttons: [
+                    {
+                        label: 'Close.'
+                    }
+                ],
+                closeOnEscape: true,
+                closeOnClickOutside: true,
+            });
         });
-    });
-}
+    }
 
-export default function InteractiveList({ ingredients }) {
+    async function removeOwnedIngredient(id) {
+        let data = {
+            "id": id
+        }
+        let result = await delete_owned_ingredient(data);
+        if (result.ok) {
+            callback(!flag);
+            store.dispatch({ type: "success/set", data: "Successfully Deleted!" })
+        }
+        else {
+            store.dispatch({ type: "error/set", data: "Unsuccessful Delete!" })
+        }
+    }
+
     const classes = useStyles();
     let ingredients_row = [];
     for (let ii = 0; ii < ingredients.length; ii++) {

@@ -9,7 +9,7 @@ import { defaultTheme } from 'react-select';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 
-import { create_owned_ingredient, delete_owned_ingredient } from '../api';
+import { create_owned_ingredient } from '../api';
 import store from '../store'
 
 const { colors } = defaultTheme;
@@ -44,14 +44,7 @@ export default function SearchBar({ ingredients, flag, callback }) {
     async function  createOwnedIngredient(value) {
         let result = await create_owned_ingredient(value);
         if(result.data) {
-            console.log(result.data);
             callback(!flag)
-            store.dispatch({type: "ownedingredients/add", data: {
-                id: result.data.id,
-                ingredient_id: result.data.ingredient_id,
-                ingredient_name: result.data.ingredient.ingredient_name,
-                user_id: result.data.user_id
-            }})
             store.dispatch({type: "success/set", data: "Successfully Added!"})
         }
         else
@@ -78,7 +71,6 @@ export default function SearchBar({ ingredients, flag, callback }) {
                     onClick: () => setState({ value: undefined })
                 }
             ],
-            // afterClose: () => {callback(0)}
         });
     };
 

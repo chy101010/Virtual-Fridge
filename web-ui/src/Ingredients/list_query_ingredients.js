@@ -41,18 +41,18 @@ function getIngredientInfo(id) {
         console.log(result);
         confirmAlert({
             title: `${titleCase(result.name)}`,
-            childrenElement: () => 
-            
-            <div>
-                <p>Cost: {result.cost.value} {result.cost.unit}</p>
-                <p>Aisle Location: {result.aisle}</p>
-                <p>Caloric Breakdown:</p>
-                <ul>
-                    <li>Protein %: {result.nutrition.caloricBreakdown.percentProtein}</li>
-                    <li>Fat %: {result.nutrition.caloricBreakdown.percentFat}</li>
-                    <li>Carbs %: {result.nutrition.caloricBreakdown.percentCarbs}</li>
-                </ul>
-            </div>,
+            childrenElement: () =>
+
+                <div>
+                    <p>Cost: {result.cost.value} {result.cost.unit}</p>
+                    <p>Aisle Location: {result.aisle}</p>
+                    <p>Caloric Breakdown:</p>
+                    <ul>
+                        <li>Protein %: {result.nutrition.caloricBreakdown.percentProtein}</li>
+                        <li>Fat %: {result.nutrition.caloricBreakdown.percentFat}</li>
+                        <li>Carbs %: {result.nutrition.caloricBreakdown.percentCarbs}</li>
+                    </ul>
+                </div>,
             buttons: [
                 {
                     label: 'Close.'
