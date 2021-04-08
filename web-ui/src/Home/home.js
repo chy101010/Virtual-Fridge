@@ -9,7 +9,7 @@ export default function Home() {
     const lives = useSelector(state => state.lives)
     const [state, setState] = useState(lives)
 
-    const topRef = useRef();
+    const topRef = useRef(null);
     const scrollToTop = () => {
         topRef.current.scrollIntoView({
 		behavior: "smooth",
@@ -104,6 +104,11 @@ export default function Home() {
         );
     }
     else {
-        return <Login />
+        return (
+	   <div>
+	     <div ref={topRef}></div>
+	     <Login />
+	   </div>
+	   )
     }
 }
