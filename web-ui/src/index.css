@@ -12,11 +12,12 @@ body {
 }
 
 #searchBarAddIng {
-  top: 50%;
+  /* top: 50%;
   left: 15%;
   position: fixed;
-  width: 70%;
+  width: 70%; */
 }
+
 .feed-table {
   vertical-align: top;
 }

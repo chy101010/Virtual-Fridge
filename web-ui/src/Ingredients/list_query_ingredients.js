@@ -16,7 +16,7 @@ import { titleCase } from './add_ingredients';
 import { confirmAlert } from 'react-confirm-alert';
 import { create_ingredient } from '../api';
 import {useSpring, animated} from 'react-spring';
-
+import store from '../store'
 
 import { get_ingredient_by_id } from '../api';
 
@@ -65,16 +65,21 @@ function getIngredientInfo(id) {
 }
 
 //makes a post request to add a new ingredient into our database
-function addNewIngredient(ingredient) {
+async function addNewIngredient(ingredient) {
     let data = {
         ingredient_name: titleCase(ingredient.name),
         spoonacular_id: ingredient.id
     }
-    create_ingredient(data);
+    let result = await create_ingredient(data);
+    if(result.data) {
+        store.dispatch({ type: "success/set", data: "Successfully Add!" })
+    }
+    else {
+        store.dispatch({ type: "error/set", data: result.error })
+    }
 }
 
 export default function InteractiveListIng({ ingredients }) {
-    console.log(ingredients);
     const classes = useStyles();
 
     const moveUp = useSpring ({

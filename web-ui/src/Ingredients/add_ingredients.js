@@ -2,9 +2,10 @@ import React, { useState } from 'react'
 import { search_ingredient_by_name, get_ingredient_by_id } from '../api'
 import { useSelector } from 'react-redux';
 import store from '../store'
-import {useSpring, animated} from 'react-spring';
+import { useSpring, animated } from 'react-spring';
 import SearchBar from 'material-ui-search-bar';
 import InteractiveListIng from './list_query_ingredients';
+import FastfoodIcon from '@material-ui/icons/Fastfood';
 
 //converts string to title case. 
 //example: "hello there" to "Hello There"
@@ -13,10 +14,10 @@ export function titleCase(str) {
     for (var i = 0; i < splitStr.length; i++) {
         // You do not need to check if i is larger than splitStr length, as your for does that for you
         // Assign it back to the array
-        splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);     
+        splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
     }
     // Directly return the joined string
-    return splitStr.join(' '); 
+    return splitStr.join(' ');
 }
 
 
@@ -32,19 +33,21 @@ export default function AddIngredients() {
     //current session
     const session = useSelector(state => state.session);
 
-    const moveUp = useSpring ({
-        config: {duration: 700},
-        opacity: clicked ? 0: 1,
+    const moveUp = useSpring({
+        config: { duration: 700 },
+        opacity: clicked ? 0 : 1,
         position: 'relative',
-        top: clicked? '-275%' : '0px',
-        delay: 200
+        top: clicked ? '-275%' : '0px',
+        //left: "15%",
+        delay: 200,     
+        margin: "auto",
     });
 
-    const moveIn = useSpring ({
-        config: {duration: 1000},
+    const moveIn = useSpring({
+        config: { duration: 1000 },
         position: 'relative',
-        top: clicked? '0px' : '300%',
-        opacity: clicked? 1:0, 
+        top: clicked ? '0px' : '-275%',
+        opacity: clicked ? 1 : 0,
         delay: 600
     });
 
@@ -54,7 +57,7 @@ export default function AddIngredients() {
         console.log(newIngredientSearch)
         let data = {
             ingredient_name: newIngredientSearch
-        }    
+        }
         search_ingredient_by_name(data).then((result) => {
             let arr = [];
             result.results.forEach(i => {
@@ -74,20 +77,20 @@ export default function AddIngredients() {
 
     if (session) {
         return (
-            <div >
-                <h3>Add Ingredients</h3>
-                <div style={{top: "50%", left: "15%", position: "fixed", width: "70%"}}>
-                    <animated.div id="searchBarAddIng" style={moveUp}>
-                        <p>Can't find what you're looking for? Try looking at the Spoonacular database.</p>
-                        <SearchBar value={newIngredientSearch} onChange={(e) => setNewIngredientSearch(e)} onRequestSearch={handleSearch} placeholder="New Ingredient" onCancelSearch={(e) => setNewIngredientQuery([])}/>
-                    </animated.div>
+            <div>
+                <div>
+                    <animated.ul id="searchUL" style={moveIn}>
+                        <InteractiveListIng ingredients={newIngredientQuery} />
+                    </animated.ul>
                 </div>
-                <animated.ul id="searchUL" style={moveIn}>
-                    <InteractiveListIng ingredients={newIngredientQuery} />
-                </animated.ul>
+                <animated.div id="searchBarAddIng" style={moveUp}>
+                    <h3 className="mt-3"><FastfoodIcon />Explore New Ingredients</h3>
+                    <p>Can't find what you're looking for? Try looking at the Spoonacular database.</p>
+                    <SearchBar style={{ width: "50%" }} value={newIngredientSearch} onChange={(e) => setNewIngredientSearch(e)} onRequestSearch={handleSearch} placeholder="New Ingredient" onCancelSearch={(e) => setNewIngredientQuery([])} />
+                </animated.div>
             </div>
         )
-    } else{
+    } else {
         let action = {
             type: "error/set",
             data: "Required Login! Go to Home!"
