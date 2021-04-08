@@ -17,3 +17,33 @@ body {
   position: fixed;
   width: 70%;
 }
+.feed-table {
+  vertical-align: top;
+}
+
+.feed-title {
+  font-size: 25px;
+  text-align: center;
+}
+
+.feed-cell {
+  background: rgb(238, 238, 238);
+  border-radius: 5px;
+  font-weight: normal;
+  border-spacing: 15px;
+}
+
+.userName {
+  color: green;
+  font-weight: bold;
+}
+
+.ingredientName {
+  color: blue;
+  font-weight: bold;
+}
+
+.recipeName {
+  color: brown;
+  font-weight: bold;
+}
