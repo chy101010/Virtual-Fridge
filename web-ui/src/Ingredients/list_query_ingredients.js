@@ -15,7 +15,6 @@ import green from '@material-ui/core/colors/green';
 import { titleCase } from './add_ingredients';
 import { confirmAlert } from 'react-confirm-alert';
 import { create_ingredient } from '../api';
-import {useSpring, animated} from 'react-spring';
 import store from '../store'
 
 import { get_ingredient_by_id } from '../api';
@@ -38,7 +37,6 @@ function getIngredientInfo(id) {
         "id": id
     }
     get_ingredient_by_id(data).then((result) => {
-        console.log(result);
         confirmAlert({
             title: `${titleCase(result.name)}`,
             childrenElement: () =>
@@ -81,20 +79,6 @@ async function addNewIngredient(ingredient) {
 
 export default function InteractiveListIng({ ingredients }) {
     const classes = useStyles();
-
-    const moveUp = useSpring ({
-        config: {duration: 700},
-        position: 'relative',
-        from: {
-            opacity: 0,
-            top: '-275%'
-        },
-        to: {
-            opacity: 1,
-            top: '0px'
-        },
-        delay: 200
-    });
 
     let ingredients_row = [];
     for (let ii = 0; ii < ingredients.length; ii++) {

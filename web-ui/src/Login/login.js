@@ -37,7 +37,7 @@ export default function Login() {
             <h2>Login</h2>
             <Form onSubmit={onSubmit}>
                 <Form.Group>
-                    <Form.Label>Email</Form.Label>
+                    <Form.Label>Username</Form.Label>
                     <Form.Control type="text" onChange={(ev) => update("username", ev)} value={user.username} />
                 </Form.Group>
                 <Form.Group>

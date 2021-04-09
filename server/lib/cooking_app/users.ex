@@ -41,17 +41,16 @@ defmodule CookingApp.Users do
     Repo.get_by!(User, username: username)
   end
 
-  def authenticate(username, pass) do
-    user = Repo.get_by(User, username: username);
-    IO.inspect(user);
-    if (user && pass === user.password_hash) do
-      user
-    else 
-      nil
-    end  
-  end 
+  #def authenticate(username, pass) do
+  #  user = Repo.get_by(User, username: username);
+  #  IO.inspect(user);
+  #  if (user && pass === user.password_hash) do
+  #    user
+  #  else 
+  #    nil
+  #  end  
+  #end 
 
-  @doc """
   def authenticate(username, pass) do
     user = Repo.get_by(User, username: username)
     case Argon2.check_pass(user, pass) do
@@ -59,7 +58,6 @@ defmodule CookingApp.Users do
       _ -> nil
     end
   end
-  """
 
   @doc """
   Creates a user.

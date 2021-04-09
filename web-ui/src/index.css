@@ -76,3 +76,14 @@ body {
   color: brown;
   font-weight: bold;
 }
+
+.nav-activity-title {
+  font-weight: bold;
+  text-align: center;
+  background: rgba(74, 68, 72, 255);
+  color: white;
+}
+
+.nav-box {
+  border: 3px solid rgba(74, 68, 72, 255);
+}
