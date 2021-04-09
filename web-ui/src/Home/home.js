@@ -69,7 +69,6 @@ export default function Home() {
       <div className="myDiv">
         <div className="bg"> </div>
         <div ref={topRef}></div>
-        <h2>Can you smell what the rock is cooking?</h2>
 
         <div className="feed-container">
           <div className="feed-table">

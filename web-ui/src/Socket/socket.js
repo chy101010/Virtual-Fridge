@@ -3,7 +3,7 @@ import { get_token, get_username } from '../api';
 import store from '../store'
 
 let token = get_token();
-let socket = new Socket("ws://cooking-app-server.wumbo.casa/socket", {params: {token: token, username: get_username()}})
+let socket = new Socket("wss://cooking-app-server.wumbo.casa/socket", {params: {token: token, username: get_username()}})
 let channel;
 let state = [];
 let callback;
