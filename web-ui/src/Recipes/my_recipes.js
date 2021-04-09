@@ -42,7 +42,7 @@ export default function ShowRecipes() {
     }
 
     useEffect(() => {
-        if (recipeList.length === 0 && session) {
+        if (session) {
             fetch_recipes();
         }
     }, [])

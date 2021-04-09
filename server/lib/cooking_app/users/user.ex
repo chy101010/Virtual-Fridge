@@ -15,14 +15,14 @@ defmodule CookingApp.Users.User do
 
   @doc false
   def changeset(user, attrs) do
-    #attrs = Map.put(attrs, "password_hash", attrs["password"]);
-    #user
-    #|> cast(attrs, [:username, :first_name, :last_name, :password_hash])
-    #|> validate_required([:username, :first_name, :last_name, :password_hash]) 
+    attrs = Map.put(attrs, "password_hash", attrs["password"]);
     user
-    |> cast(attrs, [:username, :first_name, :last_name])
-    |> add_password_hash(attrs["password"])
-    |> validate_required([:username, :first_name, :last_name, :password_hash])
+    |> cast(attrs, [:username, :first_name, :last_name, :password_hash])
+    |> validate_required([:username, :first_name, :last_name, :password_hash]) 
+    # user
+    # |> cast(attrs, [:username, :first_name, :last_name])
+    # |> add_password_hash(attrs["password"])
+    # |> validate_required([:username, :first_name, :last_name, :password_hash])
   end
 
   def add_password_hash(cset, nil) do
@@ -30,6 +30,7 @@ defmodule CookingApp.Users.User do
   end
 
   def add_password_hash(cset, password) do
-    change(cset, Argon2.add_hash(password))
+    #change(cset, Argon2.add_hash(password))
+    change(cset, password)
   end
 end

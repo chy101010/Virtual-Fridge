@@ -51,7 +51,7 @@ export default function OwnIngredients() {
             <SearchBar ingredients={display_ingredients} flag={state} callback={setState} />
           </div>
           <Typography variant="h4" className={classes.title} style={{ color: blue[300] }}>  Virtual Fridge </Typography>
-          <div className="row justify-content-center">
+          <div className="row justify-content-center mt-2">
             <InteractiveList ingredients={owned_ingredients} flag={state} callback={setState} />
           </div>
         </div>

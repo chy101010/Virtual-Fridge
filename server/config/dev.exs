@@ -2,8 +2,13 @@ use Mix.Config
 
 # Configure your database
 config :cooking_app, CookingApp.Repo,
+<<<<<<< HEAD
   username: "cooking_app_user",
   password: "eeTheiw0phu2",
+  #username: "cooking_app",
+  #password: "eeTheiw0phu2",
+  #username: "cooking_app",
+  #password: "eeTheiw0phu2",
   #username: "hw07",
   #password: "Joi7Yo3A",
   #username: "postgres",

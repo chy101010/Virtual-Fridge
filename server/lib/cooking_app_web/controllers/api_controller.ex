@@ -9,7 +9,9 @@ defmodule CookingAppWeb.ApiController do
     # Socket
     alias CookingApp.Room
 
-    plug Plugs.RequireAuth when action in [:searchResult, :getRecipeByIngredients, :recipeInfo, :ingredientInfoByIngId, :ingredientInfo]
+
+    # searchResult getRecipeByIngredients recipeInfo ingredientInfoByIngId ingredientInfo groceryStores
+    plug Plugs.RequireAuth when action in [:searchResult, :getRecipeByIngredients, :recipeInfo, :ingredientInfoByIngId, :ingredientInfo, :groceryStores]
     action_fallback CookingAppWeb.FallbackController
 
 
@@ -18,7 +20,6 @@ defmodule CookingAppWeb.ApiController do
     # Given a string query, return a list of ingredients from the Spoonacular db of ingredients.
     #ingredient_params = {"ingredient_name", name}
     def searchResult(conn, %{"ingredient" => ingredient_params}) do
-
         #call helper function with appropriate endpoint
         case Helpers.getIngredientByName(ingredient_params["ingredient_name"]) do
             {:ok, result} ->
@@ -128,6 +129,22 @@ defmodule CookingAppWeb.ApiController do
 
         #call helper function with appropriate endpoint
         case Helpers.getIngredientById(spoonacular_id) do
+            {:ok, result} ->
+                conn 
+                |> put_resp_header("content-type", "application/jsonl charset=UTF-8")
+                |> send_resp(:ok, Jason.encode!(result))
+            {:error, _} ->
+                conn 
+                |> put_resp_header("content-type", "application/json; charset=UTF-8")
+                |> send_resp(:not_acceptable, Jason.encode!(%{error: "API Error"}))
+        end
+    end
+
+    def groceryStores(conn, %{"location" => location_params}) do
+        longitude = location_params["longitude"]
+        latitude = location_params["latitude"]
+
+        case Helpers.getGroceryStores(longitude, latitude) do
             {:ok, result} ->
                 conn 
                 |> put_resp_header("content-type", "application/jsonl charset=UTF-8")
