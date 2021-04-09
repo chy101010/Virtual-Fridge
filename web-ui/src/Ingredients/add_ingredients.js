@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { search_ingredient_by_name, get_ingredient_by_id } from '../api'
+import { search_ingredient_by_name } from '../api'
 import { useSelector } from 'react-redux';
 import store from '../store'
 import { useSpring, animated } from 'react-spring';
@@ -54,8 +54,6 @@ export default function AddIngredients() {
 
     //get search results from Spoonacular database and set state
     function getSearchResults() {
-        console.log("search")
-        console.log(newIngredientSearch)
         let data = {
             ingredient_name: newIngredientSearch
         }

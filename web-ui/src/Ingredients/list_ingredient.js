@@ -38,7 +38,6 @@ export default function InteractiveList({ ingredients, flag, callback }) {
             "id": id
         }
         get_ingredient_by_ing_id(data).then((result) => {
-            console.log(result);
             confirmAlert({
                 title: `${titleCase(result.name)}`,
                 childrenElement: () =>

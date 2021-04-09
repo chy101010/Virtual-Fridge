@@ -43,7 +43,6 @@ export function ch_join() {
             })
         })
         .receive("error", resp => {
-            console.log("error");
         }) 
     }
 }

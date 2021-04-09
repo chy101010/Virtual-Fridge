@@ -26,7 +26,6 @@ export default function Home() {
   let recipes = state.recipes;
   let ingredientsFeed = [];
   let recipesFeed = [];
-  console.log(state);
 
   if (ingredients && ingredients.length !== 0) {
     ingredientsFeed = ingredients.map((item) => (
@@ -43,7 +42,6 @@ export default function Home() {
   }
 
   if (recipes && recipes.length !== 0) {
-    console.log("recipes", recipes)
     recipesFeed = recipes.map((item) => (
       <tr>
         <td className="feed-cell"><span className="userName">
