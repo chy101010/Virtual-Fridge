@@ -93,6 +93,8 @@ function error(state = null, action) {
       return null;
     case 'error/set':
       return action.data;
+    case 'error/clear':
+      return null;
     default:
       return state;
   }
