@@ -30,3 +30,5 @@ cooking_app-*.tar
 /config/dev.exs
 
 /lib/cooking_app_web/spoonacular_api_key.ex
+
+/lib/cooking_app_web/api_key.ex
