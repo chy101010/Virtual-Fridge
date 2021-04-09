@@ -2,7 +2,7 @@ use Mix.Config
 
 # Configure your database
 config :cooking_app, CookingApp.Repo,
-  username: "cooking_app",
+  username: "cooking_app_user",
   password: "eeTheiw0phu2",
   #username: "hw07",
   #password: "Joi7Yo3A",
@@ -27,7 +27,7 @@ config :cooking_app, CookingAppWeb.Endpoint,
   watchers: []
 
 config :cors_plug,
-  origin: ["http://localhost:3000"],
+  origin: ["http://cooking-app.wumbo.casa"],
   max_age: 86400,
   methods: ["GET", "POST", "PATCH", "DELETE"],
   headers: ["x-auth", "Content-Type"]

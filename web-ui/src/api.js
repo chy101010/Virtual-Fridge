@@ -29,7 +29,7 @@ export async function api_post_no_auth(path, data) {
     body: JSON.stringify(data),
   };
   let text = await fetch(
-    "http://localhost:4000/api/v1" + path, opts);
+    "http://cooking-app-server.wumbo.casa/api/v1" + path, opts);
   return await text.json();
 }
 
@@ -47,7 +47,7 @@ export async function api_get(path) {
       'x-auth': token,
     }
   };
-  let text = await fetch("http://localhost:4000/api/v1" + path, ops);
+  let text = await fetch("http://cooking-app-server.wumbo.casa/api/v1" + path, ops);
   return text.json();
 }
 
@@ -63,7 +63,7 @@ export async function api_delete(path, data) {
     body: JSON.stringify(data),
   };
   let text = await fetch(
-    "http://localhost:4000/api/v1" + path, opts);
+    "http://cooking-app-server.wumbo.casa/api/v1" + path, opts);
   return await text;
 }
 
@@ -104,7 +104,7 @@ export async function api_post(path, data) {
     body: JSON.stringify(data),
   };
   let text = await fetch(
-    "http://localhost:4000/api/v1" + path, opts);
+    "http://cooking-app-server.wumbo.casa/api/v1" + path, opts);
   return await text.json();
 }
 

@@ -18,6 +18,12 @@ config :cooking_app, CookingAppWeb.Endpoint,
   pubsub_server: CookingApp.PubSub,
   live_view: [signing_salt: "Y6zCUBzV"]
 
+config :cors_plug,
+  origin: ["http://cooking-app.wumbo.casa"],
+  max_age: 86400,
+  methods: ["GET", "POST", "PATCH", "DELETE"],
+  headers: ["x-auth", "Content-Type"]
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",

@@ -6,7 +6,7 @@ use Mix.Config
 # to provide built-in test partitioning in CI environment.
 # Run `mix help test` for more information.
 config :cooking_app, CookingApp.Repo,
-  username: "cooking_app",
+  username: "cooking_app_user",
   password: "eeTheiw0phu2",
   database: "cooking_app_test#{System.get_env("MIX_TEST_PARTITION")}",
   hostname: "localhost",
