@@ -98,6 +98,7 @@ export default function InteractiveListIng({ ingredients }) {
 
     let ingredients_row = [];
     for (let ii = 0; ii < ingredients.length; ii++) {
+        console.log(ingredients[ii].id)
         ingredients_row.push(
             <div>
             <ListItem key={ingredients[ii].id}>
