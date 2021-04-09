@@ -118,7 +118,7 @@ export default function MyNav() {
 
   if (session) {
     navActivityBar =
-       <table class="nav-box">
+       <table className="nav-box">
 	    <tr>
 	    <td>
 	      <div className="nav-activity-title">Most Recent Activity</div>
