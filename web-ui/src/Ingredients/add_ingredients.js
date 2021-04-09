@@ -6,6 +6,7 @@ import { useSpring, animated } from 'react-spring';
 import SearchBar from 'material-ui-search-bar';
 import InteractiveListIng from './list_query_ingredients';
 import FastfoodIcon from '@material-ui/icons/Fastfood';
+import { Button } from 'react-bootstrap';
 
 //converts string to title case. 
 //example: "hello there" to "Hello There"
@@ -75,6 +76,23 @@ export default function AddIngredients() {
         setClicked(!clicked);
     }
 
+    function handleBackButton() {
+        setClicked(!clicked);
+        setNewIngredientSearch("");
+    }
+
+    function BackButton() {
+        if (clicked) {
+            return (
+                <Button onClick={handleBackButton}>Back</Button>
+            );
+        } else{
+            return (
+                <div></div>
+            );
+        }
+    }
+
     if (session) {
         return (
             <div className="myDiv">
@@ -82,6 +100,7 @@ export default function AddIngredients() {
                 <div>
                     <animated.ul id="searchUL" style={moveIn}>
                         <InteractiveListIng ingredients={newIngredientQuery} />
+                        <BackButton ></BackButton>
                     </animated.ul>
                 </div>
                 <animated.div id="searchBarAddIng" style={moveUp}>
