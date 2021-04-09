@@ -82,6 +82,8 @@ function recipes(state = [], action) {
   switch (action.type) {
     case 'recipes/set':
       return action.data;
+    case 'recipes/clear':
+      return [];
     default:
       return state;
   }

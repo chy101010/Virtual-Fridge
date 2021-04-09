@@ -44,7 +44,8 @@ export default function MyNav() {
     function logout() {
         store.dispatch({ type: 'session/clear' });
         store.dispatch({ type: 'success/set', data: 'See you soon!' })
-        socket_disconnect();
+        store.dispatch({ type: 'recipes/clear' })
+	socket_disconnect();
         history.push("/");
     }
 
