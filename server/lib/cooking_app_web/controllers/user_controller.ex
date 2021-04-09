@@ -4,6 +4,7 @@ defmodule CookingAppWeb.UserController do
   alias CookingApp.Users
   alias CookingApp.Users.User
 
+  plug Plugs.RequireAuth when action in [:show]
   action_fallback CookingAppWeb.FallbackController
 
   def create(conn, %{"user" => user_params}) do

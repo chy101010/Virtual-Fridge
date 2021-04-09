@@ -16,47 +16,52 @@ export default function Home() {
       block: "start",
     });
   };
+
   useEffect(() => {
     set_callback(setState);
     state_update();
     scrollToTop();
   })
 
-  let ingredients = state.ingredients;
-  let recipes = state.recipes;
+  let ingredients = state.ingredients || [];
+  let recipes = state.recipes || [];
   let ingredientsFeed = [];
   let recipesFeed = [];
 
   if (ingredients && ingredients.length !== 0) {
-    ingredientsFeed = ingredients.map((item) => (
-      <tr>
-        <td className="feed-cell"><span className="userName">{item.username}</span> added <span className="ingredientName">{item.ingredient_name}</span> to the ingredients list!</td>
-      </tr>
-    ));
-
+    for (let ii = 0; ii < ingredients.length; ii++) {
+      ingredientsFeed.push(
+        <tr key={ii}>
+          <td className="feed-cell"><span className="userName">{ingredients[ii].username}</span> added <span className="ingredientName">{ingredients[ii].ingredient_name}</span> to the ingredients list!</td>
+        </tr>
+      )
+    }
     ingredientsFeed = ingredientsFeed.reverse();
   } else {
-    ingredientsFeed = <tr>
-      <td className="text-center">No Recent Ingredient Activity</td>
-    </tr>;
+    ingredientsFeed =
+      <tr key={0}>
+        <td className="text-center">No Recent Ingredient Activity</td>
+      </tr>;
   }
 
   if (recipes && recipes.length !== 0) {
-    recipesFeed = recipes.map((item) => (
-      <tr>
-        <td className="feed-cell"><span className="userName">
-          {item.username}
-        </span> found <span className="recipeName">
-            {item.recipe_name}
-          </span></td>
-      </tr>
-    ));
-
+    for (let ii = 0; ii < recipes.length; ii++) {
+      recipesFeed.push(
+        <tr key={ingredients.length + ii}>
+          <td className="feed-cell"><span className="userName">
+            {recipes[ii].username}
+          </span> found <span className="recipeName">
+              {recipes[ii].recipe_name}
+            </span></td>
+        </tr>
+      )
+    }
     recipesFeed = recipesFeed.reverse();
   } else {
-    recipesFeed = <tr>
-      <td className="text-center">No Recent Recipe Activity</td>
-    </tr>;
+    recipesFeed =
+      <tr key={ingredients.length + 1}>
+        <td className="text-center">No Recent Recipe Activity</td>
+      </tr>;
   }
 
   if (session) {

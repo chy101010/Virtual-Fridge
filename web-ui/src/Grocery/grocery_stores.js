@@ -1,31 +1,53 @@
-import React, { useState } from 'react'
-import { get_grocery_stores, search_ingredient_by_name } from '../api'
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react'
+import { fetch_stores } from '../api'
+import { useSelector } from 'react-redux'
 import store from '../store'
-import { useSpring, animated } from 'react-spring';
-import SearchBar from 'material-ui-search-bar';
-import InteractiveListIng from './list_query_ingredients';
-import FastfoodIcon from '@material-ui/icons/Fastfood';
-import { Button } from 'react-bootstrap';
+
+import ReactVirtualizedTable from './table'
 
 export default function Stores() {
     const session = useSelector(state => state.session);
+    const stores = useSelector(state => state.stores);
+    const [locationEnabled, setLocationEnabled] = useState(false);
 
-    function getStores() {
-        let data = {
-            latitude: "42.34013356970851",
-            longitude: "71.08809088029149"
+    // cite: https://www.w3schools.com/html/html5_geolocation.asp
+    function getLocation() {
+        if (navigator.geolocation) {
+            setLocationEnabled(true);
+            navigator.geolocation.getCurrentPosition(getStores);
         }
-        get_grocery_stores(data);
+    }
+
+    useEffect(() => {
+        if (session) {
+            getLocation();
+        }
+    }, [])
+
+    function getStores(position) {
+        let data = {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude
+        }
+        fetch_stores(data);
     }
 
     if (session) {
-        return (
-            <div className="myDiv">
-               <h1>WASSUp</h1> 
-               <Button onClick={getStores}>Test</Button>
-            </div>
-        )
+        if (locationEnabled) {
+            return (
+                <div className="myDiv">
+                    <div className="bg"></div>
+                    <h1>Super-Markets Within 20 km</h1>
+                    <ReactVirtualizedTable stores={stores} />
+                </div>
+            )
+        } else {
+            return (
+                <div>
+                    <h1>Please enable your location!</h1>
+                </div>
+            )
+        }
     } else {
         let action = {
             type: "error/set",

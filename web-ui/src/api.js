@@ -140,6 +140,10 @@ export function delete_owned_ingredient(owned_ingredient) {
   return api_delete(`/owned-ingredients/${owned_ingredient.id}`, owned_ingredient)
 }
 
-export function get_grocery_stores(location) {
-  return api_post("/grocery-stores", {location})
+export async function fetch_stores(location) {
+  let data = await api_post("/grocery-stores", {location});
+  store.dispatch({
+    type: 'stores/set',
+    data: data
+  });
 }

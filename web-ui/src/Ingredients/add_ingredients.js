@@ -2,11 +2,9 @@ import React, { useState } from 'react'
 import { search_ingredient_by_name } from '../api'
 import { useSelector } from 'react-redux';
 import store from '../store'
-import { useSpring, animated } from 'react-spring';
 import SearchBar from 'material-ui-search-bar';
 import InteractiveListIng from './list_query_ingredients';
 import FastfoodIcon from '@material-ui/icons/Fastfood';
-import { Button } from 'react-bootstrap';
 
 //converts string to title case. 
 //example: "hello there" to "Hello There"
@@ -34,24 +32,6 @@ export default function AddIngredients() {
     //current session
     const session = useSelector(state => state.session);
 
-    const moveUp = useSpring({
-        config: { duration: 2000 },
-        opacity: clicked ? 0 : 1,
-        position: 'fixed',
-        top: clicked ? '-50%' : '10%',
-        tension: 280,
-        friction: 60,
-        //left: "15%",
-        delay: 200,     
-    });
-    const moveIn = useSpring({
-        config: { duration: 1000 },
-        position: 'relative',
-        top: '15%',
-        opacity: clicked ? 1 : 0,
-        delay: 600
-    });
-
     //get search results from Spoonacular database and set state
     function getSearchResults() {
         let data = {
@@ -73,39 +53,21 @@ export default function AddIngredients() {
         getSearchResults();
         setClicked(!clicked);
     }
-
-    function handleBackButton() {
-        setClicked(!clicked);
-        setNewIngredientSearch("");
-    }
-
-    function BackButton() {
-        if (clicked) {
-            return (
-                <Button onClick={handleBackButton}>Back</Button>
-            );
-        } else{
-            return (
-                <div></div>
-            );
-        }
-    }
-
+    
     if (session) {
         return (
             <div className="myDiv">
                 <div className="bg"> </div>
-                <div>
-                    <animated.ul id="searchUL" style={moveIn}>
-                        <InteractiveListIng ingredients={newIngredientQuery} />
-                        <BackButton ></BackButton>
-                    </animated.ul>
-                </div>
-                <animated.div id="searchBarAddIng" style={moveUp}>
+                <div id="searchBarAddIng" className="mx-auto">
                     <h3 className="mt-3"><FastfoodIcon />Explore New Ingredients</h3>
                     <p>Can't find what you're looking for? Try looking at the Spoonacular database.</p>
                     <SearchBar style={{ width: "50%" }} value={newIngredientSearch} onChange={(e) => setNewIngredientSearch(e)} onRequestSearch={handleSearch} placeholder="New Ingredient" onCancelSearch={(e) => setNewIngredientQuery([])} />
-                </animated.div>
+                </div>
+                <div className="mt-5">
+                    <ul id="searchUL">
+                        <InteractiveListIng ingredients={newIngredientQuery} />
+                    </ul>
+                </div>
             </div>
         )
     } else {

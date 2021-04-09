@@ -88,7 +88,7 @@ function recipes(state = [], action) {
       return state;
   }
 }
- 
+
 function error(state = null, action) {
   switch (action.type) {
     case 'session/set':
@@ -121,10 +121,21 @@ function lives(state = [], action) {
       return state;
   }
 }
+
+function stores(state = [], action) {
+  switch(action.type) {
+    case "stores/set":
+      return action.data;
+    case "stores/clear":
+      return [];
+    default: 
+      return state;
+  }
+}
  
 function root_reducer(state, action) {
     let reducer = combineReducers({
-        users, user_form, session, error, ingredients, ownedingredients, success, recipes, lives
+        users, user_form, session, error, ingredients, ownedingredients, success, recipes, lives, stores
     });
     return reducer(state, action);
 }

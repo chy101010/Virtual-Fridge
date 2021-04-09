@@ -37,22 +37,23 @@ export default function MyNav() {
     const lives = useSelector(state => state.lives)
     const [state, setState] = useState(lives)
     useEffect(() => {
-      set_callback_nav(setState);
-      state_update_nav();
+        set_callback_nav(setState);
+        state_update_nav();
     })
 
 
     function logout() {
-        store.dispatch({ type: 'session/clear' });
+        store.dispatch({ type: 'session/clear' })
         store.dispatch({ type: 'success/set', data: 'See you soon!' })
+        store.dispatch({ type: 'stores/clear' })
         store.dispatch({ type: 'recipes/clear' })
-	socket_disconnect();
+        socket_disconnect();
         history.push("/");
     }
 
 
     function clearError() {
-      store.dispatch( { type: 'error/clear' });
+        store.dispatch({ type: 'error/clear' });
     }
 
     if (session) {
@@ -85,50 +86,51 @@ export default function MyNav() {
         );
     }
 
-  let ingredients = state.ingredients;
-  let recipes = state.recipes;
-  let recentIngredient;
-  let recentRecipe;
-  let ingredientNavFeed;
-  let recipeNavFeed;
-  
-  if (ingredients && ingredients.length !== 0) {
-    recentIngredient = ingredients[ingredients.length - 1];
-    ingredientNavFeed =
-        <div className="feed-cell"><span className="userName">{recentIngredient.username}</span> added <span className="ingredientName">{recentIngredient.ingredient_name}</span> to the ingredients list!</div>;
+    let ingredients = state.ingredients;
+    let recipes = state.recipes;
+    let recentIngredient;
+    let recentRecipe;
+    let ingredientNavFeed;
+    let recipeNavFeed;
 
-  } else {
-    ingredientNavFeed = 
-    <div className="text-center">No Recent Ingredient Activity</div>;
-  }
+    if (ingredients && ingredients.length !== 0) {
+        recentIngredient = ingredients[ingredients.length - 1];
+        ingredientNavFeed =
+            <div className="feed-cell"><span className="userName">{recentIngredient.username}</span> added <span className="ingredientName">{recentIngredient.ingredient_name}</span> to the ingredients list!</div>;
 
-  if (recipes && recipes.length !== 0) {
-    recentRecipe = recipes[recipes.length - 1];
-    recipeNavFeed=
-        <div className="feed-cell"><span className="userName">
-          {recentRecipe.username}
-        </span> found <span className="recipeName">
-            {recentRecipe.recipe_name}
-          </span></div>;
+    } else {
+        ingredientNavFeed =
+            <div className="text-center">No Recent Ingredient Activity</div>;
+    }
 
-  } else {
-    recipeNavFeed = 
-	<div className="text-center">No Recent Recipe Activity</div>;
-  }
+    if (recipes && recipes.length !== 0) {
+        recentRecipe = recipes[recipes.length - 1];
+        recipeNavFeed =
+            <div className="feed-cell"><span className="userName">
+                {recentRecipe.username}
+            </span> found <span className="recipeName">
+                    {recentRecipe.recipe_name}
+                </span></div>;
 
-  if (session) {
-    navActivityBar =
-       <table className="nav-box">
-	    <tr>
-	    <td>
-	      <div className="nav-activity-title">Most Recent Activity</div>
-	      <div className="feed-table">{ ingredientNavFeed }</div>
-	      <div className="feed-table">{ recipeNavFeed }</div>
-	    </td>
-	    </tr>
-	    </table>
-	   
-  }
+    } else {
+        recipeNavFeed =
+            <div className="text-center">No Recent Recipe Activity</div>;
+    }
+
+    if (session) {
+        navActivityBar =
+            <table className="nav-box">
+                <tbody>
+                    <tr>
+                        <td>
+                            <div className="nav-activity-title">Most Recent Activity</div>
+                            <div className="feed-table">{ingredientNavFeed}</div>
+                            <div className="feed-table">{recipeNavFeed}</div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+    }
 
 
     return (
@@ -137,15 +139,15 @@ export default function MyNav() {
                 <Navbar.Brand className="text-info">Cooking App</Navbar.Brand>
                 <Nav className="mr-auto">
                     <Link key="0" to="/" onClick={clearError}>Home</Link>
-                    { links }
+                    {links}
                 </Nav>
                 <Nav>
                     <Navbar.Text className="text-primary"> Signed in as: {user} </Navbar.Text>
                     {logout_button}
                 </Nav>
             </Navbar>
-	 
-	    { navActivityBar }
+
+            { navActivityBar}
 
             { error_row || success_row}
         </div>

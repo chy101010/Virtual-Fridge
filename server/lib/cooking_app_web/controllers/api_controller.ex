@@ -9,7 +9,9 @@ defmodule CookingAppWeb.ApiController do
     # Socket
     alias CookingApp.Room
 
-    plug Plugs.RequireAuth when action in [:searchResult, :getRecipeByIngredients, :recipeInfo, :ingredientInfoByIngId, :ingredientInfo]
+
+    # searchResult getRecipeByIngredients recipeInfo ingredientInfoByIngId ingredientInfo groceryStores
+    plug Plugs.RequireAuth when action in [:searchResult, :getRecipeByIngredients, :recipeInfo, :ingredientInfoByIngId, :ingredientInfo, :groceryStores]
     action_fallback CookingAppWeb.FallbackController
 
 
@@ -18,7 +20,6 @@ defmodule CookingAppWeb.ApiController do
     # Given a string query, return a list of ingredients from the Spoonacular db of ingredients.
     #ingredient_params = {"ingredient_name", name}
     def searchResult(conn, %{"ingredient" => ingredient_params}) do
-
         #call helper function with appropriate endpoint
         case Helpers.getIngredientByName(ingredient_params["ingredient_name"]) do
             {:ok, result} ->

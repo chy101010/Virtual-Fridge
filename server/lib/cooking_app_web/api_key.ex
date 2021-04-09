@@ -6,6 +6,6 @@ defmodule CookingAppWeb.ApiKey do
   end
 
   def getGoogleApiKey() do
-      "AIzaSyCGHtmjKxTs_xZbOpCSut7WnF4ge06p9OU"
+      "AIzaSyAIBbOQ7u9pjoA5gPUd0j0kXnmRmoBQYWU"
   end
 end

@@ -52,12 +52,12 @@ export function ch_join() {
         channel.join()
         .receive("ok", resp => {
             local_state_update(resp)
-	    local_state_nav_update(resp)
+	        local_state_nav_update(resp)
             store_lives(resp)
             channel.on("view", payload => {
                 store_lives(payload.data);                
                 local_state_update(payload.data);
-	        local_state_nav_update(payload.data);
+	            local_state_nav_update(payload.data);
             })
         })
         .receive("error", resp => {

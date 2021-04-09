@@ -8,6 +8,7 @@ import './App.scss';
 import Register from './Register/register';
 import Login from './Login/login';
 import Home from './Home/home';
+import Stores from './Grocery/grocery_stores';
 
 import ShowRecipes from './Recipes/my_recipes';
 import OwnIngredients from './Ingredients/own_ingredients';
@@ -46,7 +47,7 @@ function App() {
 					<ShowRecipes />
 				</Route>
 				<Route path="/stores" exact>
-					
+					<Stores />	
 				</Route>
 			</Switch>
 		</Container>
