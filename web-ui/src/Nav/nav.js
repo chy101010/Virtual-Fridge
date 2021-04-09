@@ -32,6 +32,7 @@ export default function MyNav() {
     let user = "unknown";
     let logout_button;
     let links = [];
+    let navActivityBar = <div></div>;
 
     const lives = useSelector(state => state.lives)
     const [state, setState] = useState(lives)
@@ -115,6 +116,20 @@ export default function MyNav() {
 	<div className="text-center">No Recent Recipe Activity</div>;
   }
 
+  if (session) {
+    navActivityBar =
+       <table class="nav-box">
+	    <tr>
+	    <td>
+	      <div className="nav-activity-title">Most Recent Activity</div>
+	      <div className="feed-table">{ ingredientNavFeed }</div>
+	      <div className="feed-table">{ recipeNavFeed }</div>
+	    </td>
+	    </tr>
+	    </table>
+	   
+  }
+
 
     return (
         <div>
@@ -129,16 +144,8 @@ export default function MyNav() {
                     {logout_button}
                 </Nav>
             </Navbar>
-
-	    <table class="nav-box">
-	    <tr>
-	    <td>
-	      <div className="nav-activity-title">Most Recent Activity</div>
-	      <div className="feed-table">{ ingredientNavFeed }</div>
-	      <div className="feed-table">{ recipeNavFeed }</div>
-	    </td>
-	    </tr>
-	    </table>
+	 
+	    { navActivityBar }
 
             { error_row || success_row}
         </div>
