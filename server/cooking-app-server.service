@@ -1,0 +1,18 @@
+[Unit]
+Description=Final Project Cooking App
+
+[Service]
+Type=simple
+User=cooking_app
+Group=cooking_app
+Restart=on-failure
+Environment=MIX_ENV=prod
+Environment=PORT=4800
+Environment=PROD=true
+Environment=LANG=en_US.UTF-8
+
+WorkingDirectory=/home/cooking_app/www/WebDev_FinalProject2/server
+ExecStart=/bin/bash /home/cooking_app/www/WebDev_FinalProject2/server/start.sh
+
+[Install]
+WantedBy=multi-user.target

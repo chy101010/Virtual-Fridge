@@ -10,9 +10,9 @@ use Mix.Config
 # which you should run after static files are built and
 # before starting your production server.
 config :cooking_app, CookingAppWeb.Endpoint,
-  url: [host: "cooking-app-server.wumbo.casa", port: 80],
+  url: [host: "cooking-app-server.wumbo.casa", port: 79],
   cache_static_manifest: "priv/static/cache_manifest.json",
-  check_origin: ["http://cooking-app.wumbo.casa/"]
+  check_origin: ["https://cooking-app.wumbo.casa/"]
 
 # Do not print debug messages in production
 config :logger, level: :info

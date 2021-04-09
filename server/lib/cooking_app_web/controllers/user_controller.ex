@@ -1,6 +1,8 @@
 defmodule CookingAppWeb.UserController do
   use CookingAppWeb, :controller
 
+  alias CookingAppWeb.Plugs
+
   alias CookingApp.Users
   alias CookingApp.Users.User
 

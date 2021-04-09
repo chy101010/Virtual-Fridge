@@ -31,7 +31,7 @@ config :cooking_app, CookingAppWeb.Endpoint,
   watchers: []
 
 config :cors_plug,
-  origin: ["http://cooking-app.wumbo.casa"],
+  origin: ["https://cooking-app.wumbo.casa"],
   max_age: 86400,
   methods: ["GET", "POST", "PATCH", "DELETE"],
   headers: ["x-auth", "Content-Type"]

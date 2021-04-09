@@ -10,6 +10,7 @@ defmodule CookingAppWeb.Router do
   end
 
   pipeline :api do
+    plug CORSPlug, origin: "*"
     plug :accepts, ["json"]
   end
 
@@ -23,6 +24,7 @@ defmodule CookingAppWeb.Router do
     pipe_through :api
 
     resources "/session", SessionController, only: [:create]
+    options "/session", SessionController, :options
     resources "/users", UserController, except: [:new, :edit, :update, :delete, :index]
     resources "/ingredients", IngredientController, except: [:delete, :update]
     resources "/owned-ingredients", OwnedIngredientController, except: [:update]
