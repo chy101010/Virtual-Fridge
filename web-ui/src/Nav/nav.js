@@ -60,6 +60,7 @@ export default function MyNav() {
         links.push(<Link key="1" to="/ingredients" onClick={clearError}>Virtual Fridge</Link>)
         links.push(<Link key="2" to="/ingredients/add" onClick={clearError}>Explore New Ingredients</Link>)
         links.push(<Link key="3" to="/recipes" onClick={clearError}>Recipes</Link>)
+        links.push(<Link key="4" to="/stores" onClick={clearError}>Grocery Stores</Link>)
     }
 
 

@@ -143,6 +143,21 @@ defmodule CookingAppWeb.Helpers do
         end
     end 
 
+    
+    def getGroceryStores(longitude, latitude) do
+        api_key = CookingAppWeb.ApiKey.getApiKey()
+        url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=#{longitude},#{latitude}&radius=1000&types=supermarket&key=#{api_key}"
+        resp = HTTPoison.get!(url)
+        if resp.status_code == 200 do
+            data = Jason.decode!(resp.body)
+            result = %{}
+            {:ok, result}
+        else
+            result = %{}
+            {:error, result}
+        end
+    end
+
     #Converts OwnedIngredient obj to ingredient name in a list
     def ingredientListObjToName(list) do
         Enum.map(list, fn ing ->

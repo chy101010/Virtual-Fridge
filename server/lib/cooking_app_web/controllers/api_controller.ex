@@ -138,4 +138,20 @@ defmodule CookingAppWeb.ApiController do
                 |> send_resp(:not_acceptable, Jason.encode!(%{error: "API Error"}))
         end
     end
+
+    def groceryStores(conn %{"location" => location_params}) do
+        longitude = location_params["longitude"]
+        latitude = location_params["latitude"]
+
+        case Helpers.getGroceryStores(longitude, latitude) do
+            {:ok, result} ->
+                conn 
+                |> put_resp_header("content-type", "application/jsonl charset=UTF-8")
+                |> send_resp(:ok, Jason.encode!(result))
+            {:error, _} ->
+                conn 
+                |> put_resp_header("content-type", "application/json; charset=UTF-8")
+                |> send_resp(:not_acceptable, Jason.encode!(%{error: "API Error"}))
+        end
+    end
 end

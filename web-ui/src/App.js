@@ -45,6 +45,9 @@ function App() {
 				<Route path="/recipes" exact>
 					<ShowRecipes />
 				</Route>
+				<Route path="/stores" exact>
+					
+				</Route>
 			</Switch>
 		</Container>
 	);
