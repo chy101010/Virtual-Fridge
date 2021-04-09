@@ -139,7 +139,7 @@ defmodule CookingAppWeb.ApiController do
         end
     end
 
-    def groceryStores(conn %{"location" => location_params}) do
+    def groceryStores(conn, %{"location" => location_params}) do
         longitude = location_params["longitude"]
         latitude = location_params["latitude"]
 

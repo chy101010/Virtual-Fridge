@@ -145,7 +145,7 @@ defmodule CookingAppWeb.Helpers do
 
     
     def getGroceryStores(longitude, latitude) do
-        api_key = CookingAppWeb.ApiKey.getApiKey()
+        api_key = CookingAppWeb.ApiKey.getGoogleApiKey()
         url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=#{longitude},#{latitude}&radius=1000&types=supermarket&key=#{api_key}"
         resp = HTTPoison.get!(url)
         if resp.status_code == 200 do
