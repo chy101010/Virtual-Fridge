@@ -1,5 +1,4 @@
 import React from 'react';
-import { useEffect } from 'react';
 import { Container } from 'react-bootstrap';
 import { Switch, Route } from 'react-router-dom';
 // Style
@@ -23,11 +22,8 @@ import { restore_session } from './store'
 import { ch_join } from './Socket/socket'
 
 function App() {
-	useEffect(() => {
-		ch_join();
-	});
-
 	restore_session();
+	ch_join();
 	return (
 		<Container>
 			<Nav />

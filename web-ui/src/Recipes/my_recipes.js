@@ -21,7 +21,7 @@ export default function ShowRecipes() {
                     <Card.Title>{recipeList[ii].title}</Card.Title>
                 </Card.Body>
                 <ListGroup className="list-group-flush">
-                    <ListGroupItem>Missed Ingredients: <span className="text-danger"> {recipeList[ii].unusedIngredients.join(", ")}</span></ListGroupItem>
+                    <ListGroupItem>Missed Ingredients: <span className="text-danger"> {recipeList[ii].missedIngredients.join(", ")}</span></ListGroupItem>
                     <ListGroupItem>Used Ingredients: <span className="text-success">{recipeList[ii].usedIngredients.join(", ")}</span> </ListGroupItem>
                     <ListGroupItem>Unused Ingredients: <span className="text-warning">{recipeList[ii].unusedIngredients.join(", ")}</span> </ListGroupItem>
                 </ListGroup>

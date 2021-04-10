@@ -29,6 +29,9 @@ export default function AddIngredients() {
 
     const [clicked, setClicked] = useState(false);
 
+    //query result text if there are no results
+    const [queryText, setQueryText] = useState("");
+
     //current session
     const session = useSelector(state => state.session);
 
@@ -46,7 +49,18 @@ export default function AddIngredients() {
                 });
             });
             setNewIngredientQuery(arr);
+            if (result.results.length == 0) {
+	        setQueryText("No Results");
+	    }
         })
+    }
+
+    function QueryLabel() {
+        return (
+            <div>
+		<h1>{queryText}</h1>
+	    </div>
+	)
     }
 
     function handleSearch() {
@@ -61,13 +75,14 @@ export default function AddIngredients() {
                 <div id="searchBarAddIng" className="mx-auto">
                     <h3 className="mt-3"><FastfoodIcon />Explore New Ingredients</h3>
                     <p>Can't find what you're looking for? Try looking at the Spoonacular database.</p>
-                    <SearchBar style={{ width: "50%" }} value={newIngredientSearch} onChange={(e) => setNewIngredientSearch(e)} onRequestSearch={handleSearch} placeholder="New Ingredient" onCancelSearch={(e) => setNewIngredientQuery([])} />
+                    <SearchBar style={{ width: "50%" }} value={newIngredientSearch} onChange={(e) => setNewIngredientSearch(e)} onRequestSearch={handleSearch} placeholder="New Ingredient" onCancelSearch={(e) => {setNewIngredientQuery([]); setQueryText("")}} />
                 </div>
                 <div className="mt-5">
                     <ul id="searchUL">
                         <InteractiveListIng ingredients={newIngredientQuery} />
                     </ul>
                 </div>
+		<QueryLabel />
             </div>
         )
     } else {

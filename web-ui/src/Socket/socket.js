@@ -2,8 +2,8 @@ import { Socket } from "phoenix"
 import { get_token, get_username } from '../api';
 import store from '../store'
 
-let token = get_token();
-let socket = new Socket("wss://cooking-app-server.wumbo.casa/socket", {params: {token: token, username: get_username()}})
+let token; //= get_token();
+let socket; // = new Socket("wss://cooking-app-server.wumbo.casa/socket", {params: {token: token, username: get_username()}})
 let channel;
 let state = [];
 let callback;
@@ -46,18 +46,20 @@ function store_lives(st) {
 }
 
 export function ch_join() {
+    token = get_token();
+    socket = new Socket("wss://cooking-app-server.wumbo.casa/socket", {params: {token: token, username: get_username()}})
     if(token) {
         socket.connect();
         channel = socket.channel("main", {})
         channel.join()
         .receive("ok", resp => {
             local_state_update(resp)
-	        local_state_nav_update(resp)
+	    local_state_nav_update(resp)
             store_lives(resp)
             channel.on("view", payload => {
                 store_lives(payload.data);                
                 local_state_update(payload.data);
-	            local_state_nav_update(payload.data);
+	        local_state_nav_update(payload.data);
             })
         })
         .receive("error", resp => {

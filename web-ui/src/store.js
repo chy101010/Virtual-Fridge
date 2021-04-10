@@ -117,6 +117,8 @@ function lives(state = [], action) {
   switch(action.type) {
     case "lives/set":
       return action.data;
+    case "lives/clear":
+      return [];
     default:
       return state;
   }

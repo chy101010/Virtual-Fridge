@@ -108,7 +108,7 @@ defmodule CookingAppWeb.Helpers do
     def getRecipeByIngredients(ing) do
         api_key = CookingAppWeb.ApiKey.getApiKey()
         ing_string = arrToString(ing, "")
-        url = "https://api.spoonacular.com/recipes/findByIngredients?apiKey=#{api_key}&ingredients=#{ing_string}"
+        url = "https://api.spoonacular.com/recipes/findByIngredients?apiKey=#{api_key}&ingredients=#{ing_string}&number=50"
         resp = HTTPoison.get!(url)
         if resp.status_code == 200 do
             data = Jason.decode!(resp.body)
@@ -120,7 +120,7 @@ defmodule CookingAppWeb.Helpers do
                 usedIngredients: cleanIngrList(rcpe["usedIngredients"]),
                 unusedIngredients: cleanIngrList(rcpe["unusedIngredients"])
             } end)
-            {:ok, result}
+            {:ok, Enum.take_random(result, 15)}
         else
             result = %{}
             {:error, result}
