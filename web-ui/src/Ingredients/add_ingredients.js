@@ -52,6 +52,8 @@ export default function AddIngredients() {
             if (result.results.length == 0) {
 	        setQueryText("No Results");
 	    }
+	    let action = { type: 'error/clear' };
+	    store.dispatch(action);
         })
     }
 
