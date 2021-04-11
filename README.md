@@ -7,4 +7,4 @@ If the following list is not complete, then the attributions are given as commen
 - https://material-ui.com/ - components.js
 - https://spoonacular.com/food-api - controller.js
 - https://developers.google.com/maps - controller.js
-- Professor Nat Tuck's Lecture Note (https://github.com/NatTuck/scratch-2021-01/tree/master/notes-4550) - socket.js & deployment script
+- Professor Nat Tuck's Lecture Note (https://github.com/NatTuck/scratch-2021-01/tree/master/notes-4550) - plug & socket.js & deployment script
