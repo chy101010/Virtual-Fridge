@@ -5,3 +5,5 @@ If the following list is not complete, then the attributions are given as commen
 - http://www4.freep.cn/hot/1952474.html
 - https://stackoverflow.com/questions/7241341/can-i-set-an-opacity-only-to-the-background-image-of-a-div
 - https://material-ui.com/
+- https://spoonacular.com/food-api
+- https://developers.google.com/maps
