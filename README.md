@@ -8,3 +8,6 @@ If the following list is not complete, then the attributions are given as commen
 - https://spoonacular.com/food-api - controller.js
 - https://developers.google.com/maps - controller.js
 - Professor Nat Tuck's Lecture Note (https://github.com/NatTuck/scratch-2021-01/tree/master/notes-4550) - plug & authenticate & socket.js & deployment script....
+
+
+Deployed At: https://cooking-app.wumbo.casa/
